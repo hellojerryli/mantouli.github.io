@@ -47,9 +47,9 @@ public class MergeSort {
         int i = 0, j = 0;
         for (int k = p; k <= r; k++) {
             if (left[i] <= right[j]) {
-                arr[p] = left[i++];
+                arr[k] = left[i++];
             } else {
-                arr[p] = right[j++];
+                arr[k] = right[j++];
             }
         }
     }
