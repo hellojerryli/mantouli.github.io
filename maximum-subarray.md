@@ -45,7 +45,7 @@ bruteForceMaximumSubarray(int[] arr) {
 
 ![](./assets/images/part1/maximum-subarray2.png)
 
-因此，arr[low...high]的一个最大子数组所处的位置必然是这三种情况之一。实际上，arr[low...high]的一个最大子数组必然是完全位于arr[low...mid]中、完全位于arr[mid + 1...high]中或者跨越中点的所有子数组中的和最大者。我们可以递归地求解arr[low...mid]和arr[mid + 1...high]，因为这两个问题仍然是最大子数组问题，只是规模更小。因此，剩下的工作就是寻找跨越中点的最大子数组，然后在三种情况中选择和最大者。
+因此，arr[low...high]的一个最大子数组所处的位置必然是这三种情况之一。我们可以递归地求解arr[low...mid]和arr[mid + 1...high]，因为这两个问题仍然是最大子数组问题，只是规模更小。因此，剩下的工作就是寻找跨越中点的最大子数组，然后在三种情况中选择和最大者。
 
 ```java
 public int[] divideAndConquerMaximumSubarray(int[] arr, int low, int high) {
