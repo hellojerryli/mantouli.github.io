@@ -93,3 +93,25 @@ private int[] maxCrossingSubarray(int[] arr, int low, int mid, int high) {
     return new int[]{leftIndex, rightIndex, leftSum + rightSum};
 }
 ```
+
+还可以使用如下思想为最大子数组问题设计一个非递归的、线性时间的算法。从数组的左边界开始，由左至右处理，记录到目前为止已经处理过的最大子数组。若一直arr[0...j]的最大子数组，基于如下性质将解扩展为arr[0...j+1]的最大子数组：arr[0...j+1]的最大子数组要么是arr[0...j]的最大子数组，要么是某个子数组arr[i...j+1] (其中0 < = i <= j+1)。在已知arr[0...j]的最大子数组的情况下，可以在线性时间内找出形如arr[i...j+1]的最大子数组。
+
+```java
+public int[] linearTimeMaximumSubarray(int[] arr) {
+    int left = 0, right = 0;
+    int max = Integer.MAX_VALUE;
+    int sum = 0;
+    for (int i = 0; i < arr.length; i++) {
+        sum += arr[i];
+        if (sum > max) {
+            max = sum;
+            right = i;
+        }
+        if (sum < 0) {
+            sum = 0;
+            left = i + 1;
+        }
+    }
+    return new int[]{left, right, max};
+}
+```
