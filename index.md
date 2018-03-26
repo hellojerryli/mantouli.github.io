@@ -15,3 +15,5 @@
 * [最大子数组问题 (Maximum Subarray)](maximum-subarray.md). March 23, 2018
 
 * [随机排列数组](permute.md). March 26, 2018
+
+* [随机样本 (Random Sample)](random-sample.md). March 26, 2018
