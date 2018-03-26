@@ -7,7 +7,7 @@
 ```java
 public int iterativeBinarySearch(int[] arr, int key) {
     int low = 0;
-    int high = arr.length = 1;
+    int high = arr.length - 1;
     while (low <= high) {
         int mid = (low + high) / 2;
         if (key == arr[mid]) {
