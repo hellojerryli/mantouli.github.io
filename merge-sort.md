@@ -21,36 +21,34 @@
 当待排序的序列长度为1时，递归开始回升，在这种情况下不要做任何工作，因为长度为1的每个序列都已排好序。
 
 ```java
-public class MergeSort {
-    public void mergeSort(int[] arr, int p, int r) {
-        if (p < r) {
-            int q = (p + r) / 2;
-            mergeSort(arr, p, q);
-            mergeSort(arr, q + 1, r);
-            merge(arr, p, q, r);
-        }
+public void mergeSort(int[] arr, int p, int r) {
+    if (p < r) {
+        int q = (p + r) / 2;
+        mergeSort(arr, p, q);
+        mergeSort(arr, q + 1, r);
+        merge(arr, p, q, r);
     }
-    
-    private void merge(int[] arr, int p, int q, int r) {
-        int n1 = q - p + 1;
-        int n2 = r - q;
-        int[] left = new int[n1 + 1];
-        int[] right = new int[n2 + 1];
-        for (int i = 0; i < n1; i++) {
-            left[i] = arr[p + i];
-        }
-        left[n1] = Integer.MAX_VALUE;
-        for (int i = 0; i < n2; i++) {
-            right[i] = arr[q + 1 + i];
-        }
-        right[n2] = Integer.MAX_VALUE;
-        int i = 0, j = 0;
-        for (int k = p; k <= r; k++) {
-            if (left[i] <= right[j]) {
-                arr[k] = left[i++];
-            } else {
-                arr[k] = right[j++];
-            }
+}
+
+private void merge(int[] arr, int p, int q, int r) {
+    int n1 = q - p + 1;
+    int n2 = r - q;
+    int[] left = new int[n1 + 1];
+    int[] right = new int[n2 + 1];
+    for (int i = 0; i < n1; i++) {
+        left[i] = arr[p + i];
+    }
+    left[n1] = Integer.MAX_VALUE;
+    for (int i = 0; i < n2; i++) {
+        right[i] = arr[q + 1 + i];
+    }
+    right[n2] = Integer.MAX_VALUE;
+    int i = 0, j = 0;
+    for (int k = p; k <= r; k++) {
+        if (left[i] <= right[j]) {
+            arr[k] = left[i++];
+        } else {
+            arr[k] = right[j++];
         }
     }
 }

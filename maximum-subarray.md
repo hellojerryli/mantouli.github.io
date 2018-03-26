@@ -9,50 +9,48 @@
 因此，arr[low...high]的一个最大子数组所处的位置必然是这三种情况之一。实际上，arr[low...high]的一个最大子数组必然是完全位于arr[low...mid]中、完全位于arr[mid + 1...high]中或者跨越中点的所有子数组中的和最大者。我们可以递归地求解arr[low...mid]和arr[mid + 1...high]，因为这两个问题仍然是最大子数组问题，只是规模更小。因此，剩下的工作就是寻找跨越中点的最大子数组，然后在三种情况中选择和最大者。
 
 ```java
-public class MaximumSubarray {
-    public int[] maximumSubarray(int[] arr, int low, int high) {
-        if (low == high) {
-            return new int[]{low, high, arr[low]};
+public int[] maximumSubarray(int[] arr, int low, int high) {
+    if (low == high) {
+        return new int[]{low, high, arr[low]};
+    } else {
+        int mid = (low + high) / 2;
+        int[] left = maximumSubarray(arr, low, mid);
+        int[] right = maximumSubarray(arr, mid + 1, high);
+        int[] cross = maxCrossingSubarray(arr, low, mid, high);
+        int leftSum = left[2];
+        int rightSum = right[2];
+        int crossSum = cross[2];
+        if (leftSum >= rightSum && leftSum >= crossSum) {
+            return left;
+        } else if (rightSum >= leftSum && rightSum >= crossSum) {
+            return right;
         } else {
-            int mid = (low + high) / 2;
-            int[] left = maximumSubarray(arr, low, mid);
-            int[] right = maximumSubarray(arr, mid + 1, high);
-            int[] cross = maxCrossingSubarray(arr, low, mid, high);
-            int leftSum = left[2];
-            int rightSum = right[2];
-            int crossSum = cross[2];
-            if (leftSum >= rightSum && leftSum >= crossSum) {
-                return left;
-            } else if (rightSum >= leftSum && rightSum >= crossSum) {
-                return right;
-            } else {
-                return cross;
-            }
+            return cross;
         }
     }
-    
-    private int[] maxCrossingSubarray(int[] arr, int low, int mid, int high) {
-        int sum = 0;
-        int leftSum = Integer.MAX_VALUE;
-        int leftIndex = mid;
-        for (int i = mid; i >= low; i--) {
-            sum += arr[i];
-            if (sum > leftSum) {
-                leftSum = sum;
-                leftIndex = i;
-            }
+}
+
+private int[] maxCrossingSubarray(int[] arr, int low, int mid, int high) {
+    int sum = 0;
+    int leftSum = Integer.MAX_VALUE;
+    int leftIndex = mid;
+    for (int i = mid; i >= low; i--) {
+        sum += arr[i];
+        if (sum > leftSum) {
+            leftSum = sum;
+            leftIndex = i;
         }
-        sum = 0;
-        int rightSum = Integer.MAX_VALUE;
-        int rightIndex = mid + 1;
-        for (int i = mid + 1; i <= high; i++) {
-            sum += arr[i];
-            if (sum > rightSum) {
-                rightSum = sum;
-                rightIndex = i;
-            }
-        }
-        return new int[]{leftIndex, rightIndex, leftSum + rightSum};
     }
+    sum = 0;
+    int rightSum = Integer.MAX_VALUE;
+    int rightIndex = mid + 1;
+    for (int i = mid + 1; i <= high; i++) {
+        sum += arr[i];
+        if (sum > rightSum) {
+            rightSum = sum;
+            rightIndex = i;
+        }
+    }
+    return new int[]{leftIndex, rightIndex, leftSum + rightSum};
 }
 ```
