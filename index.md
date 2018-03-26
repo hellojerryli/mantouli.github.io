@@ -17,3 +17,8 @@
 * [随机排列数组 (Permute)](permute.md). March 26, 2018
 
 * [随机样本 (Random Sample)](random-sample.md). March 26, 2018
+
+
+### 排序和顺序统计量
+
+* [堆排序 (Heap Sort)](heap-sort.md). March 26, 2018
