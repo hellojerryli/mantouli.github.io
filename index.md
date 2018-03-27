@@ -22,3 +22,5 @@
 ### 排序和顺序统计量
 
 * [堆排序 (Heap Sort)](heap-sort.md). March 26, 2018
+
+* [优先队列 (Priority Queue)](prioritt-queue.md). March 26, 2018
