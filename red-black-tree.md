@@ -94,7 +94,6 @@ private void rightRotate(Node p) {
 }
 ```
 
-
 leftRotate和rightRotate都在O(1)时间内运行完成，在旋转操作中，只有指针改变，其它所有属性都保持不变。
 
 ### 插入
