@@ -65,8 +65,61 @@ public int[][] matrixMultiply(int[][] a, int[][] b) {
 
 #### 步骤2：一个递归求解方案
 
+下面用子问题的最优解来递归地定义原问题最优解的代价。对矩阵链乘法问题，我们可以将对所有1 <= i <= j <= n确定AiAi+1...Aj的最小代价括号化方案作为子问题，领m[i][j]表示计算矩阵Aij所需标量乘法次数的最小值，那么，原问题的最优解——计算A1..n所需的最低代价就是m[1][n]。
 
+我们可以递归定义m[i][j]如下。对于i = j时的平凡问题，矩阵链只包含唯一的矩阵Ai..i = Ai，因此不需要做任何标量乘法运算。所以对所有i = 1, 2, ..., n, m[i][j] = 0。若i < j，我们利用步骤1中得到的最优子结构来计算m[i][j]。我们假设AiAi+1..Aj的最优括号化方案的分割点在矩阵Ak和Ak+1之间，其中i <= k < j。那么，m[i][j]就等于计算Ai..k和Ak+1..j的代价加上两者相乘的代价的最小值。由于矩阵Ai的大小为p[i - 1] x p[i]，易知Ai..k与Ak+1..j相乘的代价为p[i - 1] * p[k] * p[j]次标量乘法运算。因此，我们得到：
 
+m[i][j] = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * [pj]
+
+此递归公式假定最优分割点k是已知的，但实际上我们是不知道的。不过，k只有j - i种可能的取值，即k = i, i + 1, ..., j - 1。由于最优分割点必在其中，我们只需检查所有可能情况，找到最优解即可。因此，AiAi+1...Aj最小代价括号化方案的递归求解公式变为：
+
+![](./assets/images/part4/matrix-chain-multiplication2.png)
+
+m[i][j]的值给出了子问题最优解的代价，但它并未提供足够的信息来构造最优解，为此，我们用s[i][j]保存AiAi+1..Aj最优括号化方案的分割点位置k，即使得m[i][j] = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j]成立的k的值。
+
+#### 步骤3：计算最优代价
+
+现在，我们可以很容易地基于以上的递归公式写出一个递归算法，来计算A1A2...An相乘的最小代价m[1][n]。
+
+```java
+public static int recursiveMatrixChain(int[] p, int i, int j) {
+    if (i == j) {
+        return 0;
+    }
+    int min = Integer.MAX_VALUE;
+    for (int k = i; k < j; k++) {
+        min = Math.min(min, recursiveMatrixChain(p, i, k) + recursiveMatrixChain(p, k + 1, j) + p[i - 1] * p[k] * p[j]);
+    }
+    return min;
+}
+```
+
+注意到，我们需要求解的不同子问题的数目是相对较少的，每对满足1 <= i <= j <= n的i和j对应一个唯一的子问题，共有Θ(n ^ 2)个。递归算法会在递归调用树的不同分支中多次遇到同一个子问题，这种子问题重叠的性质是动态规划的另一个标识(第一个标识是最优子结构)。
+
+我们采用自底向上的表格法替代递归式来计算最优代价。为了实现自底向上方法，我们必须确定计算m[i][j]时需要访问哪些其它表项。上述公式显示。j - i + 1个矩阵链相乘的最优计算代价m[i][j]只依赖于那些少于j - i + 1个矩阵链相乘的最优计算代价。也就是说，对k = i, i + 1, ..., j - 1，矩阵Ai..k是k - i + 1 < j - i + 1个矩阵的积，矩阵Ak+1...j是j - k < j - i + 1个矩阵的积。因此，算法应该按长度递增的顺序求解矩阵链括号化问题，并按对应的顺序填写表m。对矩阵链AiAi+1...Aj最优括号化的子问题，我们认为其规模为链的长度j- i + 1。
+
+```java
+public static int bottomUpMatrixChain(int[] p) {
+    int n = p.length - 1;
+    int[][] m = new int[n + 1][n + 1];
+    for (int i = 1; i <= n; i++) {
+        m[i][i] = 0;
+    }
+    for (int len = 2; len <= n; len++) {
+        for (int i = 1; i <= n - len + 1; i++) {
+            int j = i + len - 1;
+            int min = Integer.MAX_VALUE;
+            for (int k = i; k < j; k++) {
+                min = Math.min(min, m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j]);
+            }
+            m[i][j] = min;
+        }
+    }
+    return m[1][n];
+}
+```
+
+#### 步骤4：构造最优解
 
 
 
