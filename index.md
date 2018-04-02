@@ -57,3 +57,13 @@
 * [二叉搜索树 (binary search tree)](binary-search-tree.md).
 
 * [红黑树 (red black tree)](red-black-tree.md).
+
+
+### 高级设计和分析技术
+
+* [动态规划 (dynamic programming)](dynamic-programming.md).
+
+* [钢条切割 (rod cutting)](rod-cutting.md).
+
+* [矩阵链乘法 (matrix-chain multiplication)](matrix-chain-multiplication.md).
+
