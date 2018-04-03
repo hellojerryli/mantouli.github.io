@@ -68,3 +68,6 @@
 * [矩阵链乘法 (matrix-chain multiplication)](matrix-chain-multiplication.md).
 
 * [最长公共子序列 (longest common subsequence)](longest-common-subsequence.md).
+
+* [贪心算法 (greedy algorithm)](greedy-algorithm.md).
+
