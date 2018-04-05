@@ -23,7 +23,7 @@
 
 * [堆排序 (heap sort)](heap-sort.md).
 
-* [优先队列 (priority queue)](prioritt-queue.md).
+* [优先队列 (priority queue)](priority-queue.md).
 
 * [d叉堆 (d-ary-heap)](d-ary-heap.md).
 
