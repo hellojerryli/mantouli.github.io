@@ -70,3 +70,5 @@
 * [最长公共子序列 (longest common subsequence)](longest-common-subsequence.md).
 
 * [贪心算法 (greedy algorithm)](greedy-algorithm.md).
+
+* [赫夫曼编码 (Huffman code)](Huffman-code.md).
