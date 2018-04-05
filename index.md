@@ -60,6 +60,8 @@
 
 * [B树 (B tree)](b-tree.md).
 
+* [用于不相交集合的数据结构 (data structures for disjoint set)](data-structures-for-disjoint-set.md).
+
 
 ### 高级设计和分析技术
 
