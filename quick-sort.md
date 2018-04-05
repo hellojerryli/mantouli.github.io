@@ -149,10 +149,6 @@ private int hoarePartition(int[] arr, int p, int r) {
 * arr[t + 1...r]中的每个元素都大于arr[q]。
 与partition类似，新构造的partition的时间复杂度是Θ(r - p)。通过修改randomizedPartition，只有分区内的元素互不相同的时候才做递归调用。
 
-```java
-
-```
-
 ### 快速排序的栈深度
 
 朴素quickSort算法包含了两个对其自身的递归调用。在调用partition后，quickSort分别调用了左边的子数组和右边的子数组。quickSort第二个递归调用并不是必须的，我们可以用一个循环控制结构来替代它。这一技术称为尾递归，好的编译器都提供这一功能。考虑下面这个版本的快速排序，它模拟了尾递归情况。
