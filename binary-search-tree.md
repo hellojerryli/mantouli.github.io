@@ -27,7 +27,7 @@ public class BinarySearchTree {
 
 设x是二叉搜索树中的一个结点，如果y是x左子树中的一个结点，那么y.key <= x.key。如果y是x右子树中的一个结点，那么y.key >= x.key。
 
-二叉搜索树性质允许我们通过一个简单的递归算法来按序输出二叉搜索树中的所有关键字，这种算法称为中序遍历(inorder tree walk)。这样命名的原因是输出的子树根的关键字位于其左子树的关键字和右子树的关键字之间。类似地，先序遍历(preorder tree walk)中输出的根的关键字在其左右子树关键字之前，而后序遍历(postorder tree walk)输出的根的关键字在其左右子树的关键字之后。
+二叉搜索树性质允许我们通过一个简单的递归算法来按序输出二叉搜索树中的所有关键字，这种算法称为中序遍历(inorder tree walk)。这样命名的原因是输出的子树根的关键字位于其左子树的关键字和右子树的关键字之间。类似地，先序遍历(preorder tree walk)输出的根的关键字在其左右子树关键字之前，而后序遍历(postorder tree walk)输出的根的关键字在其左右子树的关键字之后。
 
 ```java
 public void inorderTreeWalk(Node node) {
@@ -47,7 +47,7 @@ public void inorderTreeWalk(Node node) {
 
 #### 查找
 
-我们使用下面的方法在一棵二叉搜索树中查找一个具有给定关键字的结点。
+使用下面的方法在一棵二叉搜索树中查找一个具有给定关键字的结点。
 
 ```java
 public Node search(int key) {
@@ -161,7 +161,7 @@ public void insert(int key) {
 }
 ```
 
-insert从树根开始，指针x记录了一条向下的简单路径，并查找要替换的输入项z的null。该过程保持遍历指针(trailing pointer)作为x的父结点。while循环使得这两个指针沿树向下移动，向左或向右移动取决于z.key和y.key的比较，直到x变为null。这个null占据的位置就是输入项z要放置的地方。
+insert从树根开始，指针trailingPointer记录了一条向下的简单路径，该过程保持parent作为trailingPointer的父结点。while循环使得这两个指针沿树向下移动，向左或向右移动取决于key和trailingPointer.key的比较，直到trailingPointer变为null。这个null占据的位置就是输入项newNode要放置的地方。
 
 与其它搜索树上的原始操作一样，insert在一棵高度为h的树上运行时间为O(h)。
 
@@ -176,6 +176,8 @@ insert从树根开始，指针x记录了一条向下的简单路径，并查找�
 3. 如果z有两个孩子，那么找z的后继y（一定在z的右子树上），并让y占据树中z的位置。z的原来右子树部分成为y的新的右子树，并且z的左子树成为y的新的左子树。这种情况稍先麻烦，因为还与y是否为z的右孩子相关。
 
 从一棵二叉搜索树中删除一个给定的节点z，考虑下图显示的4种情况，它与前面概括的三种情况有些不同。
+
+![](./assets/images/part3/binary-search-tree2.png)
 
 1. 如果z没有左孩子，那么用其右孩子来替换z，这个右孩子可以是null，也可以不是。当z的右孩子是null时，此时这种情况归为z没有孩子结点的情形。当z的右孩子非null时，这种情况就是z仅有一个孩子结点的情形，该孩子是其右孩子。
 
