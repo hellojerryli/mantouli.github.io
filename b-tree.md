@@ -17,22 +17,26 @@ B树以一种自然的方式推广了二叉搜索树。如果B树的一个内部
 一棵B树是具有以下性质的有根树：
 
 1. 每个节点x有下面属性：
-* xn.,当前存储在节点x中的关键字个数。
-* x.n个关键字本身x.key1, x.key1, ..., x.keyn，以非降序存放，使得x.key1 <= x.key2 <= ... <= x.keyn。
-* x.leaf，一个布尔值，如果x是叶节点，则为true，如果x为内部结点，则为false。
+* n,当前存储在节点x中的关键字个数。
+* n个关键字本身keys[0], keys[1], ..., keys[n - 1]，以非降序存放，使得keys[0] <= keys[1] <= ... <= keys[n - 1]。
+* isLeaf，一个布尔值，如果x是叶节点，则为true，如果x为内部结点，则为false。
 
-2. 每个内部结点x还包含x.n + 1个指向其孩子的指针x.c1, x.c2, ..., x.cn+1，叶节点没有孩子，所以它们的ci属性没有定义。
+2. 每个内部结点x还包含n + 1个指向其孩子的指针children[0], children[1], ..., children[n]，叶节点没有孩子。
 
-3. 关键字x.key对存储在各子树中的关键字范围加一分割：如果ki为任意一个存储在以x.ci为根的子树中的关键字，那么 k1 <= x.key1 <= k2 <= ... <= x.keyn <= kn+1
+3. 关键字keys[i]对存储在各子树中的关键字范围加以分割：如果k[i]为任意一个存储在以children[i]为根的子树中的关键字，那么 k[0] <= keys[0] <= k[1] <= ... <= keys[n - 1] <= k[n]
 
 4. 每个叶节点具有相同的深度，即树的高度h。
 
 5. 每个节点所包含的关键字个数有上界和下界。用一个被称为B树的最小度数(minimum degree)的固定整数t >= 2来表示这些界：
-a. 除了根结点以外的每个节点必须至少有t - 1个关键字。因此，除了根节点以外的每个内部结点至少有t个孩子。如果树非空，根节点至少有一个关键字。
-b. 每个结点至多可包含2 * t - 1个关键字。因此，一个内部结点至多可有2 * t个孩子。当一个结点恰好有2t - 1个关键字时，称该结点是满的(full)。t = 1时的B树是最简单的，每个内部结点有2个、3个或4个孩子，即一棵2-3-4树。然而，在实际中，t的值越大，B树的高度就越小。
+* 除了根结点以外的每个节点必须至少有t - 1个关键字。因此，除了根节点以外的每个内部结点至少有t个孩子。如果树非空，根节点至少有一个关键字。
+* 每个结点至多可包含2 * t - 1个关键字。因此，一个内部结点至多可有2 * t个孩子。当一个结点恰好有2t - 1个关键字时，称该结点是满的(full)。t = 1时的B树是最简单的，每个内部结点有2个、3个或4个孩子，即一棵2-3-4树。然而，在实际中，t的值越大，B树的高度就越小。
 
 ```java
 public class BTree {
+    private Node root;
+    private int t;
+    private static final int DEFAULT_DEGREE = 2;
+
     private class Node {
         int n;
         boolean isLeaf;
@@ -46,10 +50,6 @@ public class BTree {
             children = new Node[2 * t];
         }
     }
-    
-    private Node root;
-    private int t;
-    private static final int DEFAULT_DEGREE = 2;
     
     public BTree() {
         t = DEFAULT_DEGREE;
