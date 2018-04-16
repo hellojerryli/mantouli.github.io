@@ -47,7 +47,7 @@ public class RedBlackTree {
 
 5. 对每个结点，从该结点到其所有后代叶结点的简单路径上，均包含相同数目的黑色结点。
 
-为了便于处理红黑树代码中的边界条件，使用一个哨兵来代表nil。对于一棵红黑树，哨兵nil是一个与树中普通结点有相同属性的对象，它的color属性为BLACK，而其它属性parent、left、right和key可以为任意值。所有指向nil的指针都用指向哨兵nil的指针替换。
+为了便于处理红黑树代码中的边界条件，使用一个哨兵来代表nil。对于一棵红黑树，哨兵nil是一个与树中普通结点有相同属性的对象，它的color属性为BLACK，而其它属性parent、left、right和key可以为任意值。
 
 ![](./assets/images/part3/red-black-tree.png)
 
@@ -63,9 +63,7 @@ public class RedBlackTree {
 
 指针结构的修改是通过旋转(rotate)来完成的，这是一种能保持二叉搜索树性质的搜索树局部操作。下图给出了两种旋转：左旋和右旋。
 
-![](./assets/images/data-structure/RBT4.png)
-
-![](./assets/images/data-structure/RBT5.png)
+![](./assets/images/part3/red-black-tree3.png)
 
 ```java
 private void leftRotate(Node p) {
@@ -101,7 +99,9 @@ private void rightRotate(Node p) {
 }
 ```
 
-leftRotate和rightRotate都在O(1)时间内运行完成，在旋转操作中，只有指针改变，其它所有属性都保持不变。
+下图给出了一个leftRotate操作修改二叉搜索树的例子，rightRotate操作的代码是对称的。leftRotate和rightRotate都在O(1)时间内运行完成，在旋转操作中，只有指针改变，其它所有属性都保持不变。
+
+![](./assets/images/part3/red-black-tree4.png)
 
 ### 插入
 
