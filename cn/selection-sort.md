@@ -6,7 +6,7 @@
 
 选择排序的示例动画。红色表示当前最小值，黄色表示已排序序列，蓝色表示当前位置。
 
-![](./assets/images/part1/selection-sort.gif)
+![](../assets/images/part1/selection-sort.gif)
 
 ```java
 public void selectionSort(int[] arr) {
