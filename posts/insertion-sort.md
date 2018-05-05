@@ -7,3 +7,5 @@ correct position in the left hand. To find the correct position for a card, we c
 it with each of the cards already in the hand, from right to left, as illustrated in
 Figure 2.1. At all times, the cards held in the left hand are sorted, and these cards
 were originally the top cards of the pile on the table.
+
+![](../assets/images/part3/disjoint-set.png)
