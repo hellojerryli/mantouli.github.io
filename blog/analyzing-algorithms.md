@@ -35,7 +35,7 @@ assume that integers are represented by c*lgn bits for some constant c >= 1.
 We require c >= 1 so that each word can hold the value of n, enabling us to index the
 individual input elements, and we restrict c to be a constant so that the word size
 does not grow arbitrarily. (If the word size could grow arbitrarily, we could store
-huge amounts of data in one word and operate on it all in constant time-—clearly
+huge amounts of data in one word and operate on it all in constant time-clearly
 an unrealistic scenario.)
 
 Real computers contain instructions not listed above, and such instructions
