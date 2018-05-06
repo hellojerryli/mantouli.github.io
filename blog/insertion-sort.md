@@ -37,6 +37,59 @@ subarray A[j+1...n-1] corresponds to the pile of cards still on the table. In fa
 elements A[0...j-1] are the elements originally in positions 0 through j-1, but
 now in sorted order.
 
+We state these properties of A[0...j-1] formally as a loop invariant:
+
+>At the start of each iteration of the for loop, the subarray A[0...j-1]
+consists of the elements originally in A[0...j-1], but in sorted order.
+
+We use loop invariants to help us understand why an algorithm is correct. We
+must show three things about a loop invariant:
+
+* **Initialization**: It is true prior to the first iteration of the loop.
+* **Maintenance**: If it is true before an iteration of the loop, it remains true before the
+next iteration.
+* **Termination**: When the loop terminates, the invariant gives us a useful property
+that helps show that the algorithm is correct.
+
+When the first two properties hold, the loop invariant is true prior to every iteration
+of the loop. (Of course, we are free to use established facts other than the loop
+invariant itself to prove that the loop invariant remains true before each iteration.)
+Note the similarity to mathematical induction, where to prove that a property holds,
+you prove a base case and an inductive step. Here, showing that the invariant holds
+before the first iteration corresponds to the base case, and showing that the invariant
+holds from iteration to iteration corresponds to the inductive step.
+
+The third property is perhaps the most important one, since we are using the loop
+invariant to show correctness. Typically, we use the loop invariant along with the
+condition that caused the loop to terminate. The termination property differs from
+how we usually use mathematical induction, in which we apply the inductive step
+infinitely; here, we stop the “induction” when the loop terminates.
+Let us see how these properties hold for insertion sort.
+
+* **Initialization**: We start by showing that the loop invariant holds before the first
+loop iteration, when j = 1. The subarray A[0...j-1], therefore, consists
+of just the single element A[0], which is in fact the original element in A[0].
+Moreover, this subarray is sorted (trivially, of course), which shows that the
+loop invariant holds prior to the first iteration of the loop.
+
+* **Maintenance**: Next, we tackle the second property: showing that each iteration
+maintains the loop invariant. Informally, the body of the for loop works by
+moving A[j-1], A[j-2], A[j-3], and so on by one position to the right
+until it finds the proper position for A[j], at which point it inserts
+the value of A[j]. The subarray A[0...j] then consists of the elements
+originally in A[0...j], but in sorted order. Incrementing j for the next iteration
+of the for loop then preserves the loop invariant.
+
+* **Termination**: Finally, we examine what happens when the loop terminates. The
+condition causing the for loop to terminate is that j == A.length = n. Because
+each loop iteration increases j by 1, we must have j == n at that time.
+Substituting n for j in the wording of loop invariant, we have that the
+subarray A[0...n-1] consists of the elements originally in A[0...n-1], but in sorted
+order. Observing that the subarray A[0...n-1] is the entire array, we conclude that
+the entire array is sorted. Hence, the algorithm is correct.
+
+We shall use this method of loop invariants to show correctness later in other for loops as well.
+
 Below is the recursive version.
 
 ```java
