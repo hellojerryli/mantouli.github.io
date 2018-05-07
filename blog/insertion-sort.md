@@ -11,10 +11,7 @@ top cards of the pile on the table.
 
 ![](../assets/img/foundations/insertion-sort.png)
 
-![](../assets/img/foundations/insertion-sort2.png)
-
-The operation of INSERTION-SORT on the array A = {5, 2, 4, 6, 1, 3}. Array indices
-appear above the rectangles, and values stored in the array positions appear within the rectangles.
+![](../assets/img/foundations/insertion-sort.gif)
 
 ```java
 public void insertionSort(int[] A) {
