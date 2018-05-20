@@ -1,7 +1,5 @@
 ### 基础
 
-* [分析算法 (analyzing algorithms)](blog/analyzing-algorithms.md).
-
 * [插入排序 (insertion sort)](blog/insertion-sort.md).
 
 * [选择排序 (selection sort)](blog/selection-sort.md).
