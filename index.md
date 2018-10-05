@@ -1,3 +1,3 @@
 ### Foundations
 
-* [Insertion Sort](foundations/insertion-sort.md). October 04, 2018.
+* [插入排序(Insertion Sort)](foundations/insertion-sort.md).
