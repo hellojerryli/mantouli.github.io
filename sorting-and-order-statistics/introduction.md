@@ -4,8 +4,8 @@ This part presents several algorithms that solve the following sorting problem:
 
 Input: A sequence of n numbers <a1, a2, ..., an>.
 
-Output: A permutation (reordering) <a1', a2', ..., an'> of the input sequence
-such that a1' <= a2' <= ... <= an'.
+Output: A permutation (reordering) <a'1, a'2, ..., a'n> of the input sequence
+such that a'1 <= a'2 <= ... <= a'n.
 
 The input sequence is usually an n-element array, although it may be represented
 in some other fashion, such as a linked list.
