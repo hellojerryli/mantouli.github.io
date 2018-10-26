@@ -12,7 +12,7 @@ a full-blown program. A sorting algorithm describes the method by which we
 determine the sorted order, regardless of whether we are sorting individual numbers
 or large records containing many bytes of satellite data. Thus, when focusing on the
 problem of sorting, we typically assume that the input consists only of numbers.
-Translating an algorithm for sorting numbers into a program for sorting records
+Translating an _algorithm for_ sorting numbers into a program for sorting records
 
 Why sorting?
 Many computer scientists consider sorting to be the most fundamental problem in
