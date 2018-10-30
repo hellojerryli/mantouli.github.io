@@ -19,18 +19,16 @@
 
 用程序实现如下：
 
-```java
-public void insertionSort(int[] arr) {
-    for (int j = 1; j < arr.length; j++) {
-        int key = arr[j];
-        int i = j - 1;
-        while (i >= 0 && arr[i] > key) {
-            arr[i + 1] = arr[i];
-            i--;
-        }
-        arr[i + 1] = key;
-    }
-}
+```python
+def insertion_sort(arr):
+    for j in range(0, len(arr)):
+        key = arr[j]
+        i = j - 1
+        while i >= 0 and arr[i] > key:
+            arr[i + 1] = arr[i]
+            i -= 1
+        arr[i + 1] = key
+
 ```
 
 在插入排序中，若输入数组本身就是排好序的，则出现最佳情况，每个元素只比较一次，不需要任何的移动，这时算法运行的时间是 O(n)。若数组本身是反向排好序的，则导致最坏情况，我们必须将每个待插入的元素与整个已排序子数组的每个元素进行比较并移动，这时算法的运行时间是 O(n^2)。
