@@ -1,1 +1,1 @@
-[https://sharpmathematics.github.io](https://sharpmathematics.github.io)
+[https://dailyalgorithms.github.io](https://dailyalgorithms.github.io)
