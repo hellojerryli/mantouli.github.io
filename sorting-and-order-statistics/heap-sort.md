@@ -48,7 +48,7 @@ void insert(int key)、int extractMax()、void increaseKey(int i, int newKey)和
 
 ### 维护堆的性质
 
-maxeapify是维护最大堆性质的关键，它的输入为一个下标i。在调用maxHeapify的时候，我们假定根节点为left(i)和right(i)的二叉树都是最大堆，但这时arr[i]有可能小于其孩子，这样就违背了最大堆的性质。maxHeapify通过让arr[i]的值在最大堆中逐级下降，从而使得以下标i为根节点的子树重新遵循最大堆的性质。
+maxeapify 是维护最大堆性质的关键，它的输入为一个下标 i。在调用 maxHeapify 的时候，我们假定根节点为 left(i) 和 right(i) 的二叉树都是最大堆，但这时 arr[i] 有可能小于其孩子，这样就违背了最大堆的性质。maxHeapify 通过让 arr[i] 的值在最大堆中逐级下降，从而使得以下标 i 为根节点的子树重新遵循最大堆的性质。
 
 ```
 public void maxHeapify(int i) {
@@ -76,7 +76,7 @@ private void swap(int[] arr, int i, int j) {
 }
 ```
 
-在程序执行的每一步中，从arr[i]、arr[left(i)]和arr[right(i)]中选出最大的，并将其下标存储在largest中。如果arr[i]是最大的，那么以i为根节点的子树已经是最大堆，程序结束。否则，最大元素是i的某个孩子节点，则交换arr[i]和arr[largest]的值，从而使i及其孩子都满足最大堆的性质。在交换后，下标为largest的节点的值是原来的arr[i]，于是以该节点为根的子树又可能会违反最大堆性质。因此，需要对该子树递归调用maxHeapify。
+在程序执行的每一步中，从 arr[i]、arr[left(i)] 和 arr[right(i)] 中选出最大的，并将其下标存储在 largest 中。如果 arr[i] 是最大的，那么以 i 为根节点的子树已经是最大堆，程序结束。否则，最大元素是 i 的某个孩子节点，则交换 arr[i] 和 arr[largest] 的值，从而使 i 及其孩子都满足最大堆的性质。在交换后，下标为 largest 的节点的值是原来的 arr[i]，于是以该节点为根的子树又可能会违反最大堆性质。因此，需要对该子树递归调用 maxHeapify。
 
 maxHeapify的代码效率较高，但递归调用可能除外，它可能使某些编译器产生低效的代码，可以使用循环控制结构取代递归，重写maxHeapify如下：
 
@@ -106,7 +106,7 @@ public void maxHeapify(int[] arr, int i) {
 
 ### 建堆
 
-我们可以使用自底向上的方式利用maxHeapify把一个长度为n的数组转化为最大堆，子数组arr[n / 2 ... n - 1]的元素都是树的叶节点。每个叶节点都可以看成只包含一个元素的堆。
+我们可以使用自底向上的方式利用 maxHeapify 把一个长度为 n 的数组转化为最大堆，子数组 arr[n/2 ... n-1] 的元素都是树的叶节点。每个叶节点都可以看成只包含一个元素的堆。
 
 ```
 public void buildMaxHeap(int[] arr) {
@@ -120,7 +120,7 @@ public void buildMaxHeap(int[] arr) {
 
 ### 堆排序算法
 
-初始时候，堆排序算法利用buildMaxHeap将输入数组arr[0...n-1]建成最大堆，其中n = arr.length。因为数组中的最大元素总在根节点arr[0]中，通过把它与arr[n - 1]进行互换，我们可以让该元素放到正确的位置。这时候，我们从堆中去掉节点n - 1，这一操作可以通过减少heapSize的值来实现，剩余的节点中，原来根的孩子节点仍然是最大堆，而新的根节点可能会违背最大堆的性质。为了维护最大堆的性质，我们要做的是调用maxHeapify(arr, 0)，从在在arr[0...n - 2]上构造一个新的最大堆。堆排序算法不断重复这一过程，直到堆的大小从n降到1。
+初始时候，堆排序算法利用 buildMaxHeap 将输入数组 arr[0...n-1] 建成最大堆，其中 n = arr.length。因为数组中的最大元素总在根节点 arr[0] 中，通过把它与 arr[n - 1] 进行互换，我们可以让该元素放到正确的位置。这时候，我们从堆中去掉节点 n - 1，这一操作可以通过减少 heapSize 的值来实现，剩余的节点中，原来根的孩子节点仍然是最大堆，而新的根节点可能会违背最大堆的性质。为了维护最大堆的性质，我们要做的是调用 maxHeapify(arr, 0)，从而在 arr[0...n - 2] 上构造一个新的最大堆。堆排序算法不断重复这一过程，直到堆的大小从 n 降到 1。
 
 ```
 public void heapSort(int[] arr) {
@@ -133,4 +133,4 @@ public void heapSort(int[] arr) {
 }
 ```
 
-heapSort的时间复杂度是O(n * lgn)，因为每次调用buildMaxHeap的时间复杂度是O(n)，而n-1次调用maxHeapify，每次的时间是O(lgn)。
+heapSort 的时间复杂度是 O(n * lgn)，因为每次调用 buildMaxHeap 的时间复杂度是 O(n)，而 n - 1 次调用 maxHeapify，每次的时间是 O(lgn)。
