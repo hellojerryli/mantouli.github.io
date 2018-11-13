@@ -50,11 +50,11 @@ void insertionSort(int[] arr) {
 还可以把插入排序表示为如下的一个递归过程：为了排序数组的前n项，我们递归地排序前 n - 1 项，然后把第 n 项插入已排序的前 n - 1 个元素中。
 
 ```
-void recursiveInsertionSort(int[] arr, int n) {
-    if (n > 0) {
-        recursiveInsertionSort(arr, n - 1);
-        int key = arr[n];
-        int i = n - 1;
+void recursiveInsertionSort(int[] arr, int j) {
+    if (j >= 1) {
+        recursiveInsertionSort(arr, j - 1);
+        int key = arr[j];
+        int i = j - 1;
         while (i >= 0 && arr[i] > key) {
             arr[i + 1] = arr[i];
             i--;
