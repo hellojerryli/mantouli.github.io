@@ -42,7 +42,7 @@ arr[parent(i)] <= arr[i]
 
 * void heapSort(int[] arr) 时间复杂度为 O(n * lgn)，功能是对一个数组进行原址排序。
 
-* void insert(int key)、int extractMax()、void increaseKey(int i, int newKey) 和 int minimum() 时间复杂度为 O(lgn)，功能是利用堆实现一个优先队列。
+* void insert(int key)、int extractMax()、void increaseKey(int i, int newKey) 和 int maximum() 时间复杂度为 O(lgn)，功能是利用堆实现一个优先队列。
 
 ### 维护堆的性质
 
@@ -132,3 +132,55 @@ void heapSort(int[] arr) {
 ```
 
 heapSort 的时间复杂度是 O(n * lgn)，因为每次调用 buildMaxHeap 的时间复杂度是 O(n)，而 n - 1 次调用 maxHeapify，每次的时间是 O(lgn)。
+
+### 优先队列
+
+堆排序是一个优秀的算法，但在实际应用中，快速排序的性能一般会优于堆排序。尽管如此，堆这一数据结构仍然有很多应用，下面我们将介绍堆的一个常见应用：作为高效的优先队列。和堆一样，优先队列也有两种形式：最大优先队列和最小优先队列。在这里，我们关注于如何基于最大堆实现最大优先队列。
+
+优先队列（priority queue）是一种用来维护由一组元素构成的集合 S 的数据结构，其中的每一个元素都有一个相关的值，称为关键字（key）。一个最大优先队列支持以下操作：
+
+* void insert(int key) 把元素 x 插入到集合 S 中，这一操作等价于 S = S ∪ {x}。
+
+* int maximum() 返回 S 中具有最大关键字的元素。
+
+* int extractMax() 去掉并返回 S 中具有最大关键字的元素。
+
+* void increaseKey(int i, int newKey) 将下标为 i 的元素关键字值增加到 newKey。这里假设 newKey 不小于该元素的原关键字值。
+
+下面的过程可以在 Θ(1) 的时间内实现 maximum 操作。
+
+```
+int maximum() {
+    return arr[0];
+}
+```
+
+extractMax 的时间复杂度为 O(lgn)，因为除了时间复杂度为 O(lgn) 的 maxHeapify 以外，它的其它操作都是常数阶的。
+
+```
+int extractMax() {
+    if (heapSize < 1) {
+        throw new RuntimeException("heap underflow");
+    }
+    int max = arr[0];
+    arr[0] = arr[heapSize - 1];
+    heapSize--;
+    maxHeapify(0);
+    return max;
+}
+```
+
+在优先队列中，我们希望增加关键字的元素由对应的数组下标 i 来标识。首先需要将元素 arr[i] 的关键字更新为新值，因为增大 arr[i] 的关键字可能会违反最大堆的性质，所以可以采用类似插入排序
+
+```
+void increaseKey(int i, int newKey) {
+    if (newKey < arr[i]) {
+        throw new RuntimeException("new key is smaller than current key");
+    }
+    arr[i] = newKey;
+    while (i > 0 && arr[parent(i)] < arr[i]) {
+        Util.swap(arr, i, parent(i));
+        i = parent(i);
+    }
+}
+```
