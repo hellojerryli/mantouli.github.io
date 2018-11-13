@@ -46,7 +46,7 @@ arr[parent(i)] <= arr[i]
 
 ### 维护堆的性质
 
-maxeapify 是维护最大堆性质的关键，它的输入为一个下标 i。在调用 maxHeapify 的时候，我们假定根节点为 left(i) 和 right(i) 的二叉树都是最大堆，但这时 arr[i] 有可能小于其孩子，这样就违背了最大堆的性质。maxHeapify 通过让 arr[i] 的值在最大堆中逐级下降，从而使得以下标 i 为根节点的子树重新遵循最大堆的性质。
+maxHeapify 是维护最大堆性质的关键，它的输入为一个下标 i。在调用 maxHeapify 的时候，我们假定根节点为 left(i) 和 right(i) 的二叉树都是最大堆，但这时 arr[i] 有可能小于其孩子，这样就违背了最大堆的性质。maxHeapify 通过让 arr[i] 的值在最大堆中逐级下降，从而使得以下标 i 为根节点的子树重新遵循最大堆的性质。
 
 ```
 void maxHeapify(int i) {
