@@ -120,12 +120,6 @@ int randomizedPartition(int[] arr, int p, int r) {
     swap(arr, i, r);
     return partition(arr, p, r);
 }
-
-void swap(int[] arr, int i, int j) {
-    int temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-}
 ```
 
 ### Hoare划分
