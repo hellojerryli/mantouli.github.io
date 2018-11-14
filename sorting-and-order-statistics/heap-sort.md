@@ -124,7 +124,9 @@ void buildMaxHeap(int[] arr) {
 }
 ```
 
-我们可以在线性时间内，把一个无序数组构造成一个最大堆。
+我们可以在线性时间内，把一个无序数组构造成一个最大堆。下图是 buildMaxHeap 的操作过程。
+
+![](../assets/images/part1/heap-sort3.png)
 
 ### 堆排序算法
 
