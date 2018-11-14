@@ -262,18 +262,18 @@ int medianOfThreePartition(int[] arr, int p, int r) {
 }
 
 int medianOfThree(int[] arr, int a, int b, int c) {
-    if (x[a] < x[b]) {
-        if (x[b] < x[c]) {
+    if (arr[a] < arr[b]) {
+        if (arr[b] < arr[c]) {
             return b;
-        } else if (x[a] < x[c]) {
+        } else if (arr[a] < arr[c]) {
             return c;
         } else {
             return a;
         }
     } else {
-        if (x[b] > x[c]) {
+        if (arr[b] > arr[c]) {
             return b;
-        } else if (x[a] > x[c]) {
+        } else if (arr[a] > arr[c]) {
             return c;
         } else {
             return a;
