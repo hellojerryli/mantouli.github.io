@@ -14,6 +14,8 @@
 
 * [计数排序 (Counting Sort)](sorting-and-order-statistics/counting-sort.md)
 
+* [基数排序 (Radix Sort)](sorting-and-order-statistics/radix-sort.md)
+
 * [桶排序 (Bucket Sort)](sorting-and-order-statistics/bucket-sort.md)
 
 * [平均排序 (Average Sort)](sorting-and-order-statistics/average-sort.md).
