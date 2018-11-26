@@ -76,10 +76,10 @@ h: U x {0, 1, ..., m - 1} -> {0, 1, ..., m - 1}
 
 ```java
 public class HashTable {
-    private int m;
-    private Node[] nodes;
+    int m;
+    Node[] nodes;
     
-    private class Node {
+    class Node {
         int key;
         
         Node(int key) {
@@ -87,24 +87,24 @@ public class HashTable {
         }
     }
     
-    public HashTable(int capacity) {
+    HashTable(int capacity) {
         m = capacity;
         nodes = new Node[capacity];
     }
     
-    private int h(int key, int i) {
+    int h(int key, int i) {
         return (h1(key) + i * h2(key)) % m;
     }
 
-    private int h1(int key) {
+    int h1(int key) {
         return key % m;
     }
 
-    private int h2(int key) {
+    int h2(int key) {
         return 1 + (key % (m - 1));
     }
     
-    public void insert(int key) {
+    void insert(int key) {
         int i = 0;
         do {
             int j = h(key, i);
@@ -121,8 +121,8 @@ public class HashTable {
 
 查找关键字 k 的算法的探查序列与将 k 插入时的算法一样，因此，查找过程中碰到一个空槽时，查找算法就（非成功地）停止，因为如果 k 在表中，它就应该在此处，而不会在探查序列随后的位置上（之所以这么说，是假定了关键字不会从散列表中删除）。
 
-```java
-public Node search(int key) {
+```
+Node search(int key) {
     int i = 0;
     int j;
     do {
