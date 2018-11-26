@@ -31,6 +31,8 @@
 
 * [链表 (Linked List)](data-structures/linked-list.md)
 
+* [散列表 (Hash Table)](data-structures/hash-table.md)
+
 ### 高级设计和分析技术
 
 
