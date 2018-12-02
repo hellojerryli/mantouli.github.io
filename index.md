@@ -39,6 +39,8 @@
 
 * [B树 (B Tree)](data-structures/b-tree.md)
 
+* [斐波那契堆 (Fibonacci Heap)](data-structures/fibonacci-heap.md)
+
 
 ### 高级设计和分析技术
 
