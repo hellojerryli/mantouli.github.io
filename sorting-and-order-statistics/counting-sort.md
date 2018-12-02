@@ -6,7 +6,7 @@
 
 在计数排序算法的代码中，假设输入是数组 a[0...n-1]，我们还需要两个数组：b[0...n-1] 存放排序的输出，c[0...k] 提供临时存储空间。
 
-```
+```java
 int[] countingSort(int[] a, int k) {
     int n = a.length;
     int[] b = new int[n];
@@ -43,7 +43,7 @@ int[] countingSort(int[] a, int k) {
 
 基于计数排序，我们能设计一个算法，它能够对任何给定的介于 0 到 k 之间的 n 个整数进行预处理，然后在 O(1) 的时间内回答输入的 n 个整数中有多少个落在区间 [left...right] 内。该预处理时间为 Θ(n + k)。
 
-```
+```java
 int countingRange(int[] a, int k, int left, int right) {
     int n = a.length;
     int[] c = new int[k + 1];
