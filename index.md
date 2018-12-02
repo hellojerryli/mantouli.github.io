@@ -46,9 +46,17 @@
 
 ### 高级设计和分析技术
 
-* [概述](advanced-design-and-analysis-techniques/introduction.md)
+* [动态规划 (Dynamic Programming)](advanced-design-and-analysis-techniques/dynamic-programming.md).
 
-* [动态规划](advanced-design-and-analysis-techniques/dynamic-programming.md)
+* [钢条切割 (Rod Cutting)](advanced-design-and-analysis-techniques/rod-cutting.md).
+
+* [矩阵链乘法 (Matrix-Chain Multiplication)](advanced-design-and-analysis-techniques/matrix-chain-multiplication.md).
+
+* [最长公共子序列 (Longest Common Subsequence)](advanced-design-and-analysis-techniques/longest-common-subsequence.md).
+
+* [贪心算法 (Greedy Algorithm)](advanced-design-and-analysis-techniques/greedy-algorithm.md).
+
+* [赫夫曼编码 (Huffman Code)](advanced-design-and-analysis-techniques/huffman-code.md).
 
 
 ### 图算法
