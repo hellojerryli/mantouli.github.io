@@ -66,15 +66,9 @@ void maxHeapify(int i) {
         largest = r;
     }
     if (largest != i) {
-        swap(arr, largest, i);
+        Util.swap(arr, largest, i);
         maxHeapify(largest);
     }
-}
-
-void swap(int[] arr, int i, int j) {
-    int temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
 }
 ```
 
@@ -101,7 +95,7 @@ void maxHeapify(int[] arr, int i) {
             largest = r;
         }
         if (largest != i) {
-            swap(arr, i, largest);
+            Util.swap(arr, i, largest);
             i = largest;
         } else {
             return;
@@ -136,7 +130,7 @@ void buildMaxHeap(int[] arr) {
 void heapSort(int[] arr) {
     buildMaxHeap(arr);
     for (int i = arr.length - 1; i >= 1; i--) {
-        swap(arr, 0, i);
+        Util.swap(arr, 0, i);
         heapSize--;
         maxHeapify(arr, 0);
     }
@@ -207,7 +201,7 @@ void increaseKey(int i, int newKey) {
     }
     arr[i] = newKey;
     while (i > 0 && arr[parent(i)] < arr[i]) {
-        swap(arr, i, parent(i));
+        Util.swap(arr, i, parent(i));
         i = parent(i);
     }
 }
