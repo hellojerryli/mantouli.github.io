@@ -26,7 +26,7 @@ merge(int[] arr, int p, int q, int r) 过程需要 Θ(n) 的时间，其中 n = 
 
 为了避免在每个基本步骤中检查是否有堆为空，在每个堆的底部放置一张哨兵牌，它包含一个特殊值 ∞ ，每当显示一张值为 ∞ 的牌，它不可能为较小的牌，除非两个堆都已显露其哨兵牌。但是，一旦发生这种情况，所有非哨兵牌都已被放置到输出堆。因为我们事先知道刚好 r - p + 1 张牌将被放置到输出堆，所以一旦已执行 r - p + 1 个基本步骤，算法就可以停止。
 
-```
+```java
 void mergeSort(int[] arr, int p, int r) {
     if (p < r) {
         int q = (p + r) / 2;
@@ -62,7 +62,7 @@ void merge(int[] arr, int p, int q, int r) {
 
 在合并步骤中，如果不使用哨兵，那么一旦数组 left 或 right 中所有元素均被复制到数组 arr，就立刻停止，然后把另一个数组的剩余部分复制到 arr。
 
-```
+```java
 void merge(int[] arr, int p, int r) {
     int n1 = q - p + 1;
     int n2 = r - q;
