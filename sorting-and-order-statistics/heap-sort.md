@@ -10,7 +10,7 @@
 
 （二叉）堆是一个数组，它可以被看成是一个近似的完全二叉树，树上的每一个节点对应数组中的一个元素。除了最底层外，该树是完全充满的，而且是从左向右填充。表示堆的数组 arr 包括两个属性：length 给出数组元素的个数，heapSize 表示有多少个堆元素存储在该数组中。也就是说，虽然 arr[0...arr.length-1] 可能都存有数据，但只有 arr[0...heapSize-1] 中存放的是堆的有效元素，这里 0 <= heapSize <= arr.length。树的根节点是 arr[0]。给定一个节点的下标 i，我们很容易计算得到它的父节点、左孩子和右孩子的下标。
 
-```
+```java
 int parent(int i) {
     return (i - 1) / 2;
 }
@@ -52,7 +52,7 @@ arr[parent(i)] <= arr[i]
 
 maxHeapify 是维护最大堆性质的关键，它的输入为一个下标 i。在调用 maxHeapify 的时候，我们假定根节点为 left(i) 和 right(i) 的二叉树都是最大堆，但这时 arr[i] 有可能小于其孩子，这样就违背了最大堆的性质。maxHeapify 通过让 arr[i] 的值在最大堆中逐级下降，从而使得以下标 i 为根节点的子树重新遵循最大堆的性质。
 
-```
+```java
 void maxHeapify(int i) {
     int l = left(i);
     int r = right(i);
@@ -86,7 +86,7 @@ void swap(int[] arr, int i, int j) {
 
 maxHeapify 的代码效率较高，但递归调用可能除外，它可能使某些编译器产生低效的代码，可以使用循环控制结构取代递归，重写 maxHeapify 如下：
 
-```
+```java
 void maxHeapify(int[] arr, int i) {
     while (true) {
         int l = left(i);
@@ -114,7 +114,7 @@ void maxHeapify(int[] arr, int i) {
 
 我们可以使用自底向上的方式利用 maxHeapify 把一个长度为 n 的数组转化为最大堆，子数组 arr[n/2 ... n-1] 的元素都是树的叶节点，每个叶节点都可以看成只包含一个元素的堆。
 
-```
+```java
 void buildMaxHeap(int[] arr) {
     int n = arr.length;
     heapSize = n;
@@ -132,7 +132,7 @@ void buildMaxHeap(int[] arr) {
 
 初始时候，堆排序算法利用 buildMaxHeap 将输入数组 arr[0...n-1] 建成最大堆，其中 n = arr.length。因为数组中的最大元素总在根节点 arr[0] 中，通过把它与 arr[n - 1] 进行互换，我们可以让该元素放到正确的位置。这时候，我们从堆中去掉节点 n - 1，这一操作可以通过减少 heapSize 的值来实现，剩余的节点中，原来根的孩子节点仍然是最大堆，而新的根节点可能会违背最大堆的性质。为了维护最大堆的性质，我们要做的是调用 maxHeapify(arr, 0)，从而在 arr[0...n - 2] 上构造一个新的最大堆。堆排序算法不断重复这一过程，直到堆的大小从 n 降到 1。
 
-```
+```java
 void heapSort(int[] arr) {
     buildMaxHeap(arr);
     for (int i = arr.length - 1; i >= 1; i--) {
@@ -153,7 +153,7 @@ heapSort 的时间复杂度是 O(n * lgn)，因为每次调用 buildMaxHeap 的�
 
 堆排序是一个优秀的算法，但在实际应用中，快速排序的性能一般会优于堆排序。尽管如此，堆这一数据结构仍然有很多应用，下面我们将介绍堆的一个常见应用：作为高效的优先队列。和堆一样，优先队列也有两种形式：最大优先队列和最小优先队列。在这里，我们关注于如何基于最大堆实现最大优先队列。
 
-```
+```java
 class MaxPriorityQueue {
     int heapSize;
     int[] arr;
@@ -177,7 +177,7 @@ class MaxPriorityQueue {
 
 下面的过程可以在 Θ(1) 的时间内实现 maximum 操作。
 
-```
+```java
 int maximum() {
     return arr[0];
 }
@@ -185,7 +185,7 @@ int maximum() {
 
 extractMax 的时间复杂度为 O(lgn)，因为除了时间复杂度为 O(lgn) 的 maxHeapify 以外，它的其它操作都是常数阶的。
 
-```
+```java
 int extractMax() {
     if (heapSize < 1) {
         throw new RuntimeException("heap underflow");
@@ -200,7 +200,7 @@ int extractMax() {
 
 在优先队列中，我们希望增加关键字的元素由对应的数组下标 i 来标识。首先需要将元素 arr[i] 的关键字更新为新值，因为增大 arr[i] 的关键字可能会违反最大堆的性质，所以可以采用类似插入排序的方式，在从当前结点到根结点的路径上，为新增的关键字寻找恰当的插入位置。在 increaseKey 的操作过程中，当前元素会不断地与其父结点进行比较，如果当前结点的关键字较大，则当前结点与父结点进行交换。这一过程会不断重复，直到当前结点的关键字小于其父结点时终止，因为此时已经重新符合了最大堆的性质。下图显示了 increaseKey 的操作过程，在包含 n 个元素的堆上， increaseKey 的时间复杂度是 O(lgn)，因为做了关键字更新的结点到根结点的路径长度为 O(lgn)。
 
-```
+```java
 void increaseKey(int i, int newKey) {
     if (newKey < arr[i]) {
         throw new RuntimeException("new key is smaller than current key");
@@ -219,7 +219,7 @@ void increaseKey(int i, int newKey) {
 
 insert 首先通过增加一个关键字为 -∞ 的叶结点来扩展最大堆，然后调用 increaseKey 为新结点设置对应的关键字，同时保持最大堆的性质。在包含 n 个元素的堆上， insert 的运行时间为 O(lgn)。
 
-```
+```java
 void insert(int key) {
     heapSize++;
     arr[heapSize - 1] = Integer.MIN_VALUE;
