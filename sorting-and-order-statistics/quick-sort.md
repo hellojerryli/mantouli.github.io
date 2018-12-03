@@ -136,7 +136,7 @@ void randomizedQuickSort(int[] arr, int p, int r) {
 }
 
 int randomizedPartition(int[] arr, int p, int r) {
-    int i = p + (int) (Math.random() * (r - p + 1));
+    int i = Util.randomInt(p, r + 1);
     Util.swap(arr, i, r);
     return partition(arr, p, r);
 }
