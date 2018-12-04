@@ -25,7 +25,7 @@ void quickSort(int[] arr, int p, int r) {
 
 int partition(int[] arr, int p, int r) {
     int i = p - 1;
-    for (int j = p; j <= r - 1; j++) {
+    for (int j = p; j < r; j++) {
         if (arr[j] <= arr[r]) {
             i++;
             Util.swap(arr, i, j);
