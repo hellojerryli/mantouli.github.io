@@ -72,9 +72,9 @@ void recursiveInsertionSort(int[] arr, int j) {
 void binaryInsertionSort(int[] arr) {
     for (int j = 1; j < arr.length; j++) {
         int key = arr[j];
-        int location = Math.abs(binarySearch(arr, 0, j, key) + 1);
+        int pos = Math.abs(binarySearch(arr, 0, j, key) + 1);
         int i = j - 1;
-        while (i >= location) {
+        while (i >= pos) {
             arr[i + 1] = arr[i];
             i--;
         }
