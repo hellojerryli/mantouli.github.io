@@ -179,55 +179,6 @@ int hoarePartition(int[] arr, int p, int r) {
 
 在前面的 partition 过程中，主元（原来存储在 arr[r] 中）是与它所划分的两个分区分离的。与之对应，在 hoarePartition 中，主元（原来存储在 arr[p] 中）是存在于分区 arr[p...j] 或 arr[j+1...r] 中的。因为有 p <= j < r，所以这一划分总是非平凡的。
 
-### 针对相同元素值的快速排序（3 路快排）
-
-在随机化快速排序的分析中，我们假设输入元素的值是互异的，下面我们看看如果这一假设不成立会出现什么情况。
-
-如果所有输入元素都相同，那么随机化快速排序的每次划分步骤都会产生一个不平衡的划分，n - 1 个元素会全部被划分到数组的左边，因此，快速排序的运行时间是 Θ(n^2)。原始版本的partition 返回一个数组下标 q，使得 arr[p...q-1] 中的每一个元素都小于或等于 arr[q]，而 arr[q+1...r] 中的每个元素都大于 arr[q]。修改 partition 代码来构造一个新的 partition，它排列 arr[p...r] 的元素，返回值是两个数组下标 q 和 t，其中 p <= q <= t <= r，且有：
-
-* arr[p...q-1] 中的每个元素都小于 arr[q]。
-
-* arr[q...t] 中的所有元素都相等。
-
-* arr[t+1...r] 中的每个元素都大于 arr[q]。
-
-与 partition 类似，新构造的 partition 的时间复杂度是 Θ(r - p)，只有分区内的元素互不相同的时候才做递归调用。
-
-下面的代码实现了 3 路快排，pivot 为 arr[r]，循环过程中始终保持 arr[l...lt] 小于 pivot，arr[gt...r] 大于 pivot，arr[lt+1...gt-1] 等于 pivot，partition 返回 lt 和 gt，之后只需对 arr[l...lt] 和 arr[gt...r] 两部分进行递归调用即可。
-
-```java
-void threeWayQuickSort(int[] arr, int l, int r) {
-    if (l < r) {
-        int[] res = threeWayPartition(arr, l, r);
-        int lt = res[0];
-        int gt = res[1];
-        threeWayQuickSort(arr, l, lt);
-        threeWayQuickSort(arr, gt, r);
-    }
-}
-
-int[] threeWayPartition(int[] arr, int l, int r) {
-    int lt = l - 1;
-    int gt = r;
-    int i = l;
-    int pivot = arr[r];
-    while (i < gt) {
-        if (arr[i] < pivot) {
-            Util.swap(arr, i, lt + 1);
-            lt++;
-            i++;
-        } else if (arr[i] > pivot) {
-            Util.swap(arr, i, gt - 1);
-            gt--;
-        } else {
-            i++;
-        }
-    }
-    Util.swap(arr, r, gt);
-    return new int[]{lt, gt + 1};
-}
-```
-
 ### 快速排序的栈深度
 
 朴素 quickSort 算法包含了两个对其自身的递归调用。在调用 partition 后，quickSort 分别调用了左边的子数组和右边的子数组。quickSort 第二个递归调用并不是必须的，我们可以用一个循环控制结构来替代它。这一技术称为尾递归，好的编译器都提供这一功能。考虑下面这个版本的快速排序，它模拟了尾递归情况。
@@ -293,5 +244,54 @@ int medianOfThree(int[] x, int a, int b, int c) {
             return a;
         }
     }
+}
+```
+
+### 针对相同元素值的快速排序（3 路快排）
+
+在随机化快速排序的分析中，我们假设输入元素的值是互异的，下面我们看看如果这一假设不成立会出现什么情况。
+
+如果所有输入元素都相同，那么随机化快速排序的每次划分步骤都会产生一个不平衡的划分，n - 1 个元素会全部被划分到数组的左边，因此，快速排序的运行时间是 Θ(n^2)。原始版本的partition 返回一个数组下标 q，使得 arr[p...q-1] 中的每一个元素都小于或等于 arr[q]，而 arr[q+1...r] 中的每个元素都大于 arr[q]。修改 partition 代码来构造一个新的 partition，它排列 arr[p...r] 的元素，返回值是两个数组下标 q 和 t，其中 p <= q <= t <= r，且有：
+
+* arr[p...q-1] 中的每个元素都小于 arr[q]。
+
+* arr[q...t] 中的所有元素都相等。
+
+* arr[t+1...r] 中的每个元素都大于 arr[q]。
+
+与 partition 类似，新构造的 partition 的时间复杂度是 Θ(r - p)，只有分区内的元素互不相同的时候才做递归调用。
+
+下面的代码实现了 3 路快排，pivot 为 arr[r]，循环过程中始终保持 arr[l...lt] 小于 pivot，arr[gt...r] 大于 pivot，arr[lt+1...gt-1] 等于 pivot，partition 返回 lt 和 gt，之后只需对 arr[l...lt] 和 arr[gt...r] 两部分进行递归调用即可。
+
+```java
+void threeWayQuickSort(int[] arr, int l, int r) {
+    if (l < r) {
+        int[] res = threeWayPartition(arr, l, r);
+        int lt = res[0];
+        int gt = res[1];
+        threeWayQuickSort(arr, l, lt);
+        threeWayQuickSort(arr, gt, r);
+    }
+}
+
+int[] threeWayPartition(int[] arr, int l, int r) {
+    int lt = l - 1;
+    int gt = r;
+    int i = l;
+    int pivot = arr[r];
+    while (i < gt) {
+        if (arr[i] < pivot) {
+            Util.swap(arr, i, lt + 1);
+            lt++;
+            i++;
+        } else if (arr[i] > pivot) {
+            Util.swap(arr, i, gt - 1);
+            gt--;
+        } else {
+            i++;
+        }
+    }
+    Util.swap(arr, r, gt);
+    return new int[]{lt, gt + 1};
 }
 ```
