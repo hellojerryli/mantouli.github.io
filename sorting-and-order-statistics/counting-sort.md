@@ -11,7 +11,7 @@ int[] countingSort(int[] a, int k) {
     int n = a.length;
     int[] b = new int[n];
     int[] c = new int[k + 1];
-    for (int i = 0; i < k; i++) {
+    for (int i = 0; i <= k; i++) {
         c[i] = 0;
     }
     for (int i = 0; i < n; i++) {
@@ -47,7 +47,7 @@ int[] countingSort(int[] a, int k) {
 int countingRange(int[] a, int k, int left, int right) {
     int n = a.length;
     int[] c = new int[k + 1];
-    for (int i = 0; i < k; i++) {
+    for (int i = 0; i <= k; i++) {
         c[i] = 0;
     }
     for (int i = 0; i < n; i++) {
