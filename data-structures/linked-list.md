@@ -60,7 +60,7 @@ void insert(int key) {
 
 delete 方法将一个元素 x 从链表中移除，该过程要求给定一个指向 x 的指针，然后通过修改一些指针，将 x 删除出该链表。delete 的运行时间为 O(1)，但如果要删除具有给定关键字的元素，则最坏情况下需要的时间为 Θ(n)，因为需要先调用 search 找到该元素。
 
-```
+```java
 void delete(Node node) {
     if (node.prev != null) {
         node.prev.next = node.next;
