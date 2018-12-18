@@ -30,7 +30,7 @@ public class LinkedList {
 
 可以采用简单的线性搜索方法，用于查找链表中第一个关键字为 k 的元素，并返回指向该元素的指针，如果链表中没有关键字为 k 的元素，则返回 null。要搜索一个有 n 个对象的链表，在最坏情况下运行时间为 Θ(n)，因为可能需要搜索整个链表。
 
-```
+```java
 Node search(int key) {
     Node node = head;
     while (node != null && node.key != key) {
@@ -44,15 +44,15 @@ Node search(int key) {
 
 下面的代码将一个新元素插入到链表的前端：
 
-```
+```java
 void insert(int key) {
-    Node newNode = new Node(key);
-    newNode.next = head;
+    Node node = new Node(key);
+    node.next = head;
     if (head != null) {
-        head.prev = newNode;
+        head.prev = node;
     }
-    head = newNode;
-    newNode.prev = null;
+    head = node;
+    node.prev = null;
 }
 ```
 
