@@ -189,7 +189,7 @@ int extractMax() {
         throw new RuntimeException("heap underflow");
     }
     int max = arr[0];
-    arr[0] = arr[heapSize - 1];
+    Util.swap(arr, 0, heapSize - 1);
     heapSize--;
     maxHeapify(0);
     return max;
@@ -203,7 +203,7 @@ void increaseKey(int i, int key) {
     if (key < arr[i]) {
         throw new RuntimeException("new key is less than current key");
     }
-    while (i > 0 && arr[parent(i)] < key) {
+    while (parent(i) >= 0 && arr[parent(i)] < key) {
         arr[i] = arr[parent(i)];
         i = parent(i);
     }
