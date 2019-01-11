@@ -107,13 +107,13 @@ void iterativeQuickSort(int[] arr, int p, int r) {
     while (top >= 0) {
         r = stack[top--];
         p = stack[top--];
-        int pivot = partition(arr, p, r);
-        if (pivot - p > 1) {
+        int q = partition(arr, p, r);
+        if (q - p > 1) {
             stack[++top] = p;
-            stack[++top] = pivot - 1;
+            stack[++top] = q - 1;
         }
-        if (r - pivot > 1) {
-            stack[++top] = pivot + 1;
+        if (r - q > 1) {
+            stack[++top] = q + 1;
             stack[++top] = r;
         }
     }
