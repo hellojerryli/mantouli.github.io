@@ -154,27 +154,27 @@ randomizedSelect 的最坏情况运行时间是 Θ(n^2)，即使是找出最小�
 5. 如果 i = k，则返回 x。如果 i < k，则在低区递归调用 select 来找出第 i 小的元素，如果 i > k，则在高区递归查找第 i - k 小的元素。
 
 ```java
-int select(int[] arr, int p, int r, int x) {
+int select(int[] arr, int p, int r, int i) {
     if (p == r) {
         return arr[p];
     }
     int n = r - p + 1;
     int group = (n + 4) / 5;
     int[] medians = new int[group];
-    for (int i = 0; i < group; i++) {
-        int start = p + i * 5;
+    for (int j = 0; j < group; j++) {
+        int start = p + j * 5;
         int end = (start + 5 > r) ? r : (start + 5);
-        medians[i] = getMedian(arr, start, end);
+        medians[j] = getMedian(arr, start, end);
     }
     int medOfMed = select(medians, 0, group - 1, (group - 1) / 2 + 1);
     int q = partition(arr, p, r, medOfMed);
     int k = q - p + 1;
-    if (x == k) {
+    if (i == k) {
         return arr[q];
-    } else if (x < k) {
-        return select(arr, p, q - 1, x);
+    } else if (i < k) {
+        return select(arr, p, q - 1, i);
     } else {
-        return select(arr, q + 1, r, x - k);
+        return select(arr, q + 1, r, i - k);
     }
 }
 
