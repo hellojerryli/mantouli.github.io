@@ -22,37 +22,38 @@
 void radixSort(int[] arr) {
     int d = maxBit(arr);
     int n = arr.length;
-    int[] temp = new int[n];
-    int[] count = new int[10 + 1];
-    int radix = 1;
-    for (int j = 1; j <= d; j++) {
-        for (int i = 0; i <= 10; i++) {
+    int[] output = new int[n];
+    int[] count = new int[10];
+    int exp = 1;
+    for (int j = 0; j < d; j++) {
+        for (int i = 0; i <= 9; i++) {
             count[i] = 0;
         }
         for (int i = 0; i < n; i++) {
-            int k = (arr[i] / radix) % 10;
-            count[k]++;
+            count[(arr[i] / exp) % 10]++;
         }
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 9; i++) {
             count[i] += count[i - 1];
         }
         for (int i = n - 1; i >= 0; i--) {
-            int k = (arr[i] / radix) % 10;
-            temp[count[k] - 1] = arr[i];
-            count[k]--;
+            int x = (arr[i] / exp) % 10;
+            output[count[x] - 1] = arr[i];
+            count[x]--;
         }
         for (int i = 0; i < n; i++) {
-            arr[i] = temp[i];
+            arr[i] = output[i];
         }
         Util.printArray(arr);
-        radix *= 10;
+        exp *= 10;
     }
 }
 
 int maxBit(int[] arr) {
     int maxData = arr[0];
     for (int i = 1; i < arr.length; i++) {
-        maxData = Math.max(maxData, arr[i]);
+        if (arr[i] > maxData) {
+            maxData = arr[i];
+        }
     }
     int d = 1;
     while (maxData >= 10) {
