@@ -20,47 +20,45 @@
 
 ```java
 void radixSort(int[] arr) {
-    int d = maxBit(arr);
-    int n = arr.length;
-    int[] output = new int[n];
-    int[] count = new int[10];
-    int exp = 1;
-    for (int j = 0; j < d; j++) {
-        for (int i = 0; i <= 9; i++) {
-            count[i] = 0;
-        }
-        for (int i = 0; i < n; i++) {
-            count[(arr[i] / exp) % 10]++;
-        }
-        for (int i = 1; i <= 9; i++) {
-            count[i] += count[i - 1];
-        }
-        for (int i = n - 1; i >= 0; i--) {
-            int x = (arr[i] / exp) % 10;
-            output[count[x] - 1] = arr[i];
-            count[x]--;
-        }
-        for (int i = 0; i < n; i++) {
-            arr[i] = output[i];
-        }
+    int max = maximum(arr);
+    for (int exp = 1; max / exp > 0; exp *= 10) {
+        countingSort(arr, exp);
         Util.printArray(arr);
-        exp *= 10;
     }
 }
 
-int maxBit(int[] arr) {
-    int maxData = arr[0];
+void countingSort(int[] arr, int exp) {
+    int n = arr.length;
+    int k = 9;
+    int[] output = new int[n];
+    int[] count = new int[k + 1];
+    for (int i = 0; i <= k; i++) {
+        count[i] = 0;
+    }
+    for (int i = 0; i < n; i++) {
+        count[(arr[i] / exp) % 10]++;
+    }
+    for (int i = 1; i <= k; i++) {
+        count[i] += count[i - 1];
+    }
+    for (int i = n - 1; i >= 0; i--) {
+        int x = (arr[i] / exp) % 10;
+        output[count[x] - 1] = arr[i];
+        count[x]--;
+    }
+    for (int i = 0; i < n; i++) {
+        arr[i] = output[i];
+    }
+}
+
+int maximum(int[] arr) {
+    int max = arr[0];
     for (int i = 1; i < arr.length; i++) {
-        if (arr[i] > maxData) {
-            maxData = arr[i];
+        if (arr[i] > max) {
+            max = arr[i];
         }
     }
-    int d = 1;
-    while (maxData >= 10) {
-        maxData /= 10;
-        d++;
-    }
-    return d;
+    return max;
 }
 ```
 
