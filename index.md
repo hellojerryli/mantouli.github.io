@@ -1,7 +1,5 @@
 ### 排序和顺序统计量
 
-* [概述](sorting-and-order-statistics/introduction.md)
-
 * [插入排序 (Insertion Sort)](sorting-and-order-statistics/insertion-sort.md)
 
 * [归并排序 (Merge Sort)](sorting-and-order-statistics/merge-sort.md)
