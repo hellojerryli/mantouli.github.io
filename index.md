@@ -1,4 +1,4 @@
-### 排序和顺序统计量
+### 排序和查找
 
 * [插入排序 (Insertion Sort)](sorting-and-order-statistics/insertion-sort.md)
 
