@@ -82,9 +82,7 @@ void binaryInsertionSort(int[] arr) {
     }
 }
 
-int binarySearch(int[] arr, int fromIndex, int endIndex, int key) {
-    int low = fromIndex;
-    int high = endIndex;
+int binarySearch(int[] arr, int low, int high, int key) {
     while (low <= high) {
         int mid = (low + high) / 2;
         if (key == arr[mid]) {
