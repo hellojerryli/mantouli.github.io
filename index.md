@@ -38,7 +38,7 @@
 * [用于不相交集合的数据结构 (Data Structures for Disjoint Set)](data-structures/data-structures-for-disjoint-set.md)
 
 
-### 高级设计和分析技术
+### 动态规划和贪心算法
 
 * [动态规划 (Dynamic Programming)](advanced-design-and-analysis-techniques/dynamic-programming.md).
 
