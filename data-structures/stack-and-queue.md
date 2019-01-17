@@ -14,11 +14,11 @@
 
 ```java
 public class Stack {
-    int[] keys;
+    int[] arr;
     int top;
     
     Stack(int capacity) {
-        keys = new int[capacity];
+        arr = new int[capacity];
         top = -1;
     }
     
@@ -27,21 +27,21 @@ public class Stack {
     }
     
     boolean isFull() {
-        return top == keys.length - 1;
+        return top == arr.length - 1;
     }
     
     void push(int key) {
         if (isFull()) {
             throw new RuntimeException("stack overflow");
         }
-        keys[++top] = key;
+        arr[++top] = key;
     }
     
     int pop() {
         if (isEmpty()) {
             throw new RuntimeException("stack underflow");
         }
-        return keys[top--];
+        return arr[top--];
     }
 }
 ```
@@ -58,12 +58,12 @@ public class Stack {
 
 ```java
 public class Queue {
-    int[] keys;
+    int[] arr;
     int head;
     int tail;
     
     Queue(int capacity) {
-        keys = new int[capacity + 1];
+        arr = new int[capacity + 1];
         head = 0;
         tail = 0;
     }
@@ -73,15 +73,15 @@ public class Queue {
     }
     
     boolean isFull() {
-        return (head == tail + 1) || (head == 0 && tail == keys.length - 1);
+        return (head == tail + 1) || (head == 0 && tail == arr.length - 1);
     }
     
     void enqueue(int key) {
         if (isFull()) {
             throw new RuntimeException("queue overflow");
         }
-        keys[tail] = key;
-        if (tail == keys.length - 1) {
+        arr[tail] = key;
+        if (tail == arr.length - 1) {
             tail = 0;
         } else {
             tail++;
@@ -92,8 +92,8 @@ public class Queue {
         if (isEmpty()) {
             throw new RuntimeException("queue underflow");
         }
-        int res = keys[head];
-        if (head == keys.length - 1) {
+        int res = arr[head];
+        if (head == arr.length - 1) {
             head = 0;
         } else {
             head++;

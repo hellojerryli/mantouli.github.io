@@ -47,12 +47,12 @@ Node search(int key) {
 ```java
 void insert(int key) {
     Node node = new Node(key);
+    node.prev = null;
     node.next = head;
     if (head != null) {
         head.prev = node;
     }
     head = node;
-    node.prev = null;
 }
 ```
 

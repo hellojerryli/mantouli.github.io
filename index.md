@@ -33,8 +33,6 @@
 
 * [B树 (B Tree)](data-structures/b-tree.md)
 
-* [斐波那契堆 (Fibonacci Heap)](data-structures/fibonacci-heap.md)
-
 * [用于不相交集合的数据结构 (Data Structures for Disjoint Set)](data-structures/data-structures-for-disjoint-set.md)
 
 
