@@ -14,12 +14,12 @@
 
 ```java
 public class Stack {
-    int top;
     int[] keys;
+    int top;
     
     Stack(int capacity) {
-        top = -1;
         keys = new int[capacity];
+        top = -1;
     }
     
     boolean isEmpty() {
@@ -78,28 +78,26 @@ public class Queue {
     void enqueue(int key) {
         if (isFull()) {
             throw new RuntimeException("queue overflow");
+        }
+        keys[tail] = key;
+        if (tail == keys.length - 1) {
+            tail = 0;
         } else {
-            keys[tail] = key;
-            if (tail == keys.length - 1) {
-                tail = 0;
-            } else {
-                tail++;
-            }
+            tail++;
         }
     }
     
     int dequeue() {
         if (isEmpty()) {
             throw new RuntimeException("queue underflow");
-        } else {
-            int ret = keys[head];
-            if (head == keys.length - 1) {
-                head = 0;
-            } else {
-                head++;
-            }
-            return ret;
         }
+        int ret = keys[head];
+        if (head == keys.length - 1) {
+            head = 0;
+        } else {
+            head++;
+        }
+        return ret;
     }
 }
 ```
