@@ -25,10 +25,14 @@ public class RedBlackTree {
         Node(int key) {
             this.key = key;
         }
+        
+        Node() {
+            this.key = Integer.MIN_VALUE;
+        }
     }
     
     RedBlackTree() {
-        nil = new Node(-1);
+        nil = new Node();
         nil.color = BLACK;
         root = nil;
     }
