@@ -161,7 +161,7 @@ void insert(int key) {
 }
 ```
 
-insert 从树根开始，指针 trailingPointer 记录了一条向下的简单路径，该过程保持 parent 作为 trailingPointer 的父结点。while 循环使得这两个指针沿树向下移动，向左或向右移动取决于 key 和 trailingPointer.key 的比较，直到 trailingPointer 变为 null。这个 null 占据的位置就是输入项 newNode 要放置的地方。
+insert 从树根开始，指针 temp 记录了一条向下的简单路径，该过程保持 p 作为 temp 的父结点。while 循环使得这两个指针沿树向下移动，向左或向右移动取决于 key 和 temp.key 的比较，直到 temp 变为 null。这个 null 占据的位置就是输入项新结点要放置的地方。
 
 与其它搜索树上的原始操作一样，insert 在一棵高度为 h 的树上运行时间为 O(h)。
 
