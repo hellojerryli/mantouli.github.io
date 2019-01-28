@@ -141,7 +141,7 @@ public class HashTable {
                 return;
             }
             i++;
-        } while (i != m);
+        } while (i < m);
         throw new RuntimeException("hash table overflow");
     }
 }
@@ -152,16 +152,15 @@ public class HashTable {
 ```java
 Slot search(int key) {
     int i = 0;
-    int j;
     do {
-        j = h(key, i);
+        int j = h(key, i);
         if (slots[j] == null) {
             return null;
         } else if (slots[j].key == key) {
             return slots[j].deleted ? null : slots[j];
         }
         i++;
-    } while (i != m);
+    } while (i < m);
     return null;
 }
 ```
