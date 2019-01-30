@@ -200,7 +200,7 @@ while 循环在每次迭代的开头保持下列三个部分的不变式：
 
 3. 如果有任何红黑性质被破坏，则至多只有一条被破坏，或是性质 2，或是性质 4。如果性质 2 被破坏，其原因为 z 是根结点且是红色。如果性质 4 被破坏，其原因为 z 和 z.parent 都是红色。
 
-需要考虑 while 循环中的 6 种情况，而其中三种与另外三种是对称的。这取决于 z 的父结点 z.parent 是 z 的祖父结点 z.parent.parent 的左孩子还是右孩子。根据循环不变式，如果 z.parent 是根结点，那么 z.parent 是黑色的，可知结点 z.parent.parent 存在。因为只有在 z.parent 是红色时才进入一次循环迭代，所以 z.parent 不可能是根结点，因此 z.parent.parent 存在。
+需要考虑 while 循环中的 6 种情况，而其中三种与另外三种是对称的。这取决于 z 的父结点 z.parent 是 z 的祖父结点 z.parent.parent 的左孩子还是右孩子。根据循环不变式，如果 z.parent 是根结点，那么 z.parent 是黑色的，可知 z.parent 不可能是根结点，z 更不可能是根结点，否则不会进入 while 循环，结点 z.parent.parent 存在。因为只有在 z.parent 是红色时才进入一次循环迭代，所以 z.parent 不可能是根结点，因此 z.parent.parent 存在。
 
 情况 1 和情况 2、情况 3 的区别在于 z 父亲的兄弟结点（或称为叔结点）的颜色不同。
 
@@ -253,27 +253,29 @@ void delete(int key) {
     if (node == nil) {
         return;
     }
-    boolean deletedColor = node.color;
+    boolean deletedColor;
     Node replacer;
     if (node.left == nil) {
+        deletedColor = node.color;
         replacer = node.right;
         transplant(node.right, node);
     } else if (node.right == nil) {
+        deletedColor = node.color;
         replacer = node.left;
         transplant(node.left, node);
     } else {
-        Node successor = minimum(node.right);
-        deletedColor = successor.color;
-        replacer = successor.right;
-        if (successor.parent != node) {
-            transplant(successor.right, successor);
-            successor.right = node.right;
-            successor.right.parent = successor;
+        Node succ = minimum(node.right);
+        deletedColor = succ.color;
+        replacer = succ.right;
+        if (succ.parent != node) {
+            transplant(succ.right, succ);
+            succ.right = node.right;
+            succ.right.parent = succ;
         }
-        transplant(successor, node);
-        successor.left = node.left;
-        successor.left.parent = successor;
-        successor.color = node.color;
+        transplant(succ, node);
+        succ.left = node.left;
+        succ.left.parent = succ;
+        succ.color = node.color;
     }
     if (deletedColor == BLACK) {
         deleteFixUp(replacer);
