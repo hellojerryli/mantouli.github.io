@@ -264,18 +264,18 @@ void delete(int key) {
         replacer = node.left;
         transplant(node.left, node);
     } else {
-        Node succ = minimum(node.right);
-        deletedColor = succ.color;
-        replacer = succ.right;
-        if (succ.parent != node) {
-            transplant(succ.right, succ);
-            succ.right = node.right;
-            succ.right.parent = succ;
+        Node suc = minimum(node.right);
+        deletedColor = suc.color;
+        replacer = suc.right;
+        if (suc.parent != node) {
+            transplant(suc.right, suc);
+            suc.right = node.right;
+            suc.right.parent = suc;
         }
-        transplant(succ, node);
-        succ.left = node.left;
-        succ.left.parent = succ;
-        succ.color = node.color;
+        transplant(suc, node);
+        suc.left = node.left;
+        suc.left.parent = suc;
+        suc.color = node.color;
     }
     if (deletedColor == BLACK) {
         deleteFixUp(replacer);
