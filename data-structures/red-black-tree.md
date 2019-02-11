@@ -143,45 +143,6 @@ void insert(int key) {
     node.color = RED;
     insertFixUp(node);
 }
-
-void insertFixUp(Node node) {
-    while (node.parent.color == RED) {
-        if (node.parent == node.parent.parent.left) {
-            Node uncle = node.parent.parent.right;
-            if (uncle.color == RED) {
-                node.parent.color = BLACK;
-                uncle.color = BLACK;
-                node.parent.parent.color = RED;
-                node = node.parent.parent;
-            } else {
-                if (node == node.parent.right) {
-                    node = node.parent;
-                    leftRotate(node);
-                }
-                node.parent.color = BLACK;
-                node.parent.parent.color = RED;
-                rightRotate(node.parent.parent);
-            }
-        } else {
-            Node uncle = node.parent.parent.left;
-            if (uncle.color == RED) {
-                node.parent.color = BLACK;
-                uncle.color = BLACK;
-                node.parent.parent.color = RED;
-                node = node.parent.parent;
-            } else {
-                if (node == node.parent.left) {
-                    node = node.parent;
-                    rightRotate(node);
-                }
-                node.parent.color = BLACK;
-                node.parent.parent.color = RED;
-                leftRotate(node.parent.parent);
-            }
-        }
-    }
-    root.color = BLACK;
-}
 ```
 
 为了理解 insertFixUp 如何工作，把代码分为三个主要的步骤。首先，要确定当结点 z 被插入并着为红色后，红黑性质中有哪些不能继续保持。其次，应分析 while 循环的总目标。最后，要分析 while 循环体中的三种情况，看它们是如何完成目标的。下图给出一个范例，显示在一棵红黑树上 insertFixUp 如何操作。
@@ -221,6 +182,47 @@ insertFixUp 的情况 1。性质 4 被违反，因为 z 和它的父结点 z.par
 ![](../assets/images/part3/red-black-tree7.png)
 
 insertFixUp 的情况 2 和 情况 3。如同情况 1，由于 z 和它的父结点 z.parent 都是红色的，性质 4 在情况 2 或情况 3 中会被破坏。每一棵子树 α、β、γ、δ 和 ε 都有一个黑色根结点（α、β 和 γ 是由性质 4 而来，δ 也有黑色根结点，因为否则将导致情况 1），而且具有相同的黑高。通过左旋将情况 2 转变为情况 3，以保持性质 5：从一个结点向下到一个叶结点的所有简单路径都有相同数目的黑结点。情况 3 引起某些结点颜色的改变，以及一个同样为了保持性质 5 的右旋，然后 while 循环终止，因为性质 4 已经得到了满足：红色结点的孩子是黑色的。
+
+```java
+void insertFixUp(Node node) {
+    while (node.parent.color == RED) {
+        if (node.parent == node.parent.parent.left) {
+            Node uncle = node.parent.parent.right;
+            if (uncle.color == RED) {
+                node.parent.color = BLACK;
+                uncle.color = BLACK;
+                node.parent.parent.color = RED;
+                node = node.parent.parent;
+            } else {
+                if (node == node.parent.right) {
+                    node = node.parent;
+                    leftRotate(node);
+                }
+                node.parent.color = BLACK;
+                node.parent.parent.color = RED;
+                rightRotate(node.parent.parent);
+            }
+        } else {
+            Node uncle = node.parent.parent.left;
+            if (uncle.color == RED) {
+                node.parent.color = BLACK;
+                uncle.color = BLACK;
+                node.parent.parent.color = RED;
+                node = node.parent.parent;
+            } else {
+                if (node == node.parent.left) {
+                    node = node.parent;
+                    rightRotate(node);
+                }
+                node.parent.color = BLACK;
+                node.parent.parent.color = RED;
+                leftRotate(node.parent.parent);
+            }
+        }
+    }
+    root.color = BLACK;
+}
+```
 
 insert 的运行时间怎样呢？由于一棵有 n 个结点的红黑树的高度 h 为 O(lgn)，因此，首先将 z 按普通二叉搜索树的方式插入到树中需要花费 O(h) = O(lgn) 时间。在 insertFixUp 中，仅当情况 1 发生，然后指针 z 沿着树上升 2 层，while 循环才会重复执行，所以 while 循环可能被执行的总次数为 O(lgn)。因此，insert 总共花费 O(lgn) 时间。此外，该程序所做的旋转从不超过 2 次，因为只要执行了情况 2 或情况 3，while 循环就结束了。
 
