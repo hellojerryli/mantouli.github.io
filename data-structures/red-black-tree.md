@@ -376,4 +376,4 @@ deleteFixUp 中 while 循环的各种情况。加黑的结点 color 属性为 BL
 
 通过进行某些颜色修改并对 x.parent 做一次左旋，可以去掉 x 的额外黑色，从而使得它变为单重黑色，而且不破坏红黑树的任何性质。将 x 设置为根后，当 while 循环测试其循环条件时，循环终止。
 
-delete 的运行时间是怎样的呢？因为含有 n 个结点的红黑树的高度为 O(lgn)，不调用 deleteFixUp 时该过程总时间代价为 O(lgn)。在 deleteFixUp 中，情况 1、3 和 4 在各执行常数次数的颜色改变和至多 3 次旋转后便终止。情况 2 是 while 循环可以重复执行的唯一情况，然后指针 x 沿树上升至多 O(lgn) 次，且不执行任何旋转。所以，deleteFixUp 要花费 O(lgn) 时间，做至多 3 次旋转。因此，delete 运行的总时间为 O(lgn)。
+delete 的运行时间是怎样的呢？因为含有 n 个结点的红黑树的高度为 O(lgn)，不调用 deleteFixUp 时该过程总时间代价为 O(lgn)。在 deleteFixUp 中，情况 1、3 和 4 在各执行常数次的颜色改变和至多 3 次旋转后便终止。情况 2 是 while 循环可以重复执行的唯一情况，然后指针 x 沿树上升至多 O(lgn) 次，且不执行任何旋转。所以，deleteFixUp 要花费 O(lgn) 时间，做至多 3 次旋转。因此，delete 运行的总时间为 O(lgn)。
