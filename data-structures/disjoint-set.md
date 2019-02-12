@@ -68,9 +68,9 @@ public class DisjointSet {
         return node;
     }
 
-    Node union(Node node1, Node node2) {
-        Set set1 = node1.set;
-        Set set2 = node2.set;
+    void union(Node x, Node y) {
+        Set set1 = x.set;
+        Set set2 = y.set;
         if (set1.weight < set2.weight) {
             return link(set1, set2);
         } else {
@@ -122,7 +122,7 @@ findSet 过程中的路径压缩。箭头和根结点的自环被略去了。（
 
 ```java
 public class DisjointSetForest {
-    static class Node {
+    class Node {
         int key;
         Node parent;
         int rank;
