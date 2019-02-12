@@ -52,10 +52,6 @@ public class DisjointSet {
         Node head;
         Node tail;
         int weight;
-
-        Set() {
-            this.weight = 0;
-        }
     }
 
     Node makeSet(int key) {
@@ -64,6 +60,7 @@ public class DisjointSet {
         set.head = node;
         set.tail = node;
         node.set = set;
+        set.weight = 1;
         return node;
     }
 
@@ -82,6 +79,7 @@ public class DisjointSet {
         Node node = src.head;
         while (node != null) {
             node.set = dest;
+            dest.weight++;
             node = node.next;
         }
         dest.tail = src.tail;
