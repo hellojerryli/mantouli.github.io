@@ -107,15 +107,92 @@ public class Queue {
 
 #### 双端队列
 
-栈插入和删除元素只能在同一端进行，队列的插入和删除操作分别在两端进行，与它们不同的是，有一种双端队列（deque），其插入和删除操作都可以在两端进行。可以用一个数组实现双端队列，其在两端插入和删除元素的时间都是 O(1)。
+栈插入和删除元素只能在同一端进行，队列的插入和删除操作分别在两端进行，与它们不同的是，有一种双端队列（double ended queue, deque），其插入和删除操作都可以在两端进行。可以用一个数组实现双端队列，其在两端插入和删除元素的时间都是 O(1)。
 
 ```java
 public class Deque {
-    
+    int[] arr;
+    int head;
+    int tail;
+
+    Deque(int capacity) {
+        arr = new int[capacity];
+        head = -1;
+        tail = 0;
+    }
+
+    boolean isFull() {
+        return (head == tail + 1) || (head == 0 && tail == arr.length - 1);
+    }
+
+    boolean isEmpty() {
+        return head == -1;
+    }
+
+    void headEnqueue(int key) {
+        if (isFull()) {
+            throw new RuntimeException("overflow");
+        }
+        if (head == -1) {
+            head = 0;
+            tail = 0;
+        } else if (head == 0) {
+            head = arr.length - 1;
+        } else {
+            head--;
+        }
+        arr[head] = key;
+    }
+
+    void tailEnqueue(int key) {
+        if (isFull()) {
+            throw new RuntimeException("overflow");
+        }
+        if (head == -1) {
+            head = 0;
+            tail = 0;
+        } else if (tail == arr.length - 1) {
+            tail = 0;
+        } else {
+            tail++;
+        }
+        arr[tail] = key;
+    }
+
+    int headDequeue() {
+        if (isEmpty()) {
+            throw new RuntimeException("underflow");
+        }
+        int res = arr[head];
+        if (head == tail) {
+            head = -1;
+            tail = -1;
+        } else if (head == arr.length - 1) {
+            head = 0;
+        } else {
+            head++;
+        }
+        return res;
+    }
+
+    int tailDequeue() {
+        if (isEmpty()) {
+            throw new RuntimeException("underflow");
+        }
+        int res = arr[tail];
+        if (head == tail) {
+            head = -1;
+            tail = -1;
+        } else if (tail == 0) {
+            tail = arr.length - 1;
+        } else {
+            tail--;
+        }
+        return res;
+    }
 }
 ```
 
 #### 用两个栈实现一个队列
 
 #### 用两个队列实现一个栈
-
