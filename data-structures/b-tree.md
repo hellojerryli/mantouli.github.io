@@ -48,8 +48,8 @@ public class BTree {
         }
     }
 
-    BTree(int degree) {
-        t = degree;
+    BTree(int minimumDegree) {
+        t = minimumDegree;
         root = new Node();
         root.n = 0;
         root.leaf = true;
