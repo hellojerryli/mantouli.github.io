@@ -173,6 +173,8 @@ void insert(int key) {
 
 ![](../assets/images/part3/b-tree4.png)
 
+分裂 t = 4 的根。根结点 r 一分为二，并创建了一个新的根结点 s。新的根结点包含了 r 的中间关键字，且以 r 的两半作为孩子。当根被分裂时，B 树的高度增加 1。
+
 辅助的递归过程 insertNonFull 将关键字插入结点 x，要求假定在调用该过程时 x 是非满的。操作 insert 和递归操作 insertNonFull 保证了这个假设成立。
 
 ```java
