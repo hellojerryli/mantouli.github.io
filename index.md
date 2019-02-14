@@ -25,9 +25,9 @@
 
 * [链表 (Linked List)](data-structures/linked-list.md)
 
-* [散列表 (Hash Table)](data-structures/hash-table.md)
-
 * [跳跃表 (Skip List)](data-structures/skip-list.md)
+
+* [散列表 (Hash Table)](data-structures/hash-table.md)
 
 * [二叉搜索树 (Binary Search Tree)](data-structures/binary-search-tree.md)
 
