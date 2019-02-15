@@ -47,9 +47,6 @@ void inorderTreeWalk(Node node) {
 
 ```java
 void nonRecursiveInorderTreeWalk(Node node) {
-    if (node == null) {
-        return;
-    }
     Stack<Node> stack = new Stack<>();
     while (node != null || !stack.isEmpty()) {
         while (node != null) {
@@ -67,9 +64,6 @@ void nonRecursiveInorderTreeWalk(Node node) {
 
 ```java
 void MorrisTraversal(Node node) {
-    if (node == null) {
-        return;
-    }
     while (node != null) {
         if (node.left == null) {
             System.out.println(node);
