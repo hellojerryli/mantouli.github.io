@@ -87,7 +87,8 @@ void MorrisTraversal(Node node) {
                 pre.right = node;
                 node = node.left;
             } else {
-                // Revert the changes made in "if" part to restore the original tree i.e., fix the right child of predecessor
+                // Revert the changes made in "if" part to restore the original tree, 
+                // fix the right child of predecessor
                 pre.right = null;
                 System.out.println(node);
                 node = node.right;
