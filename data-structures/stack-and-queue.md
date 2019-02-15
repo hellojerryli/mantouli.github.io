@@ -22,12 +22,12 @@ public class Stack {
         top = -1;
     }
     
-    boolean isFull() {
-        return top == arr.length - 1;
-    }
-    
     boolean isEmpty() {
         return top == -1;
+    }
+
+    boolean isFull() {
+        return top == arr.length - 1;
     }
     
     void push(int key) {
@@ -68,12 +68,12 @@ public class Queue {
         tail = 0;
     }
     
-    boolean isFull() {
-        return (head == tail + 1) || (head == 0 && tail == arr.length - 1);
-    }
-    
     boolean isEmpty() {
         return head == tail;
+    }
+    
+    boolean isFull() {
+        return (head == tail + 1) || (head == 0 && tail == arr.length - 1);
     }
     
     void enqueue(int key) {
@@ -120,13 +120,13 @@ public class Deque {
         head = -1;
         tail = 0;
     }
+    
+    boolean isEmpty() {
+        return head == -1;
+    }
 
     boolean isFull() {
         return (head == tail + 1) || (head == 0 && tail == arr.length - 1);
-    }
-
-    boolean isEmpty() {
-        return head == -1;
     }
 
     void headEnqueue(int key) {
@@ -206,13 +206,13 @@ public class Queue {
         in = new Stack(capacity);
         out = new Stack(capacity);
     }
+    
+    boolean isEmpty() {
+        return in.isEmpty() && out.isEmpty();
+    }
 
     boolean isFull() {
         return in.isFull() && !out.isEmpty();
-    }
-
-    boolean isEmpty() {
-        return in.isEmpty() && out.isEmpty();
     }
 
     void enqueue(int key) {
@@ -258,13 +258,13 @@ public class Stack {
     Queue inactive() {
         return queue1.isEmpty() ? queue1 : queue2;
     }
+    
+    boolean isEmpty() {
+        return active().isEmpty();
+    }
 
     boolean isFull() {
         return active().isFull();
-    }
-
-    boolean isEmpty() {
-        return active().isEmpty();
     }
 
     void push(int key) {
