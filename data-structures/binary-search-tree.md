@@ -49,12 +49,19 @@ void inorderTreeWalk(Node node) {
 void nonRecursiveInorderTreeWalk(Node node) {
     Stack<Node> stack = new Stack<>();
     while (node != null || !stack.isEmpty()) {
+        // Reach the left most node of the current node
         while (node != null) {
+            // Place pointer to a tree node on the stack before traversing the node's left subtree
             stack.push(node);
             node = node.left;
         }
+        
+        // Current must be null at this point
         node = stack.pop();
+        
         System.out.println(node);
+        
+        // We have visited the node and it's left subtree, now, it's right subtree's turn
         node = node.right;
     }
 }
