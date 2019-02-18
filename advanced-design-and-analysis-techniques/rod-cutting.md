@@ -151,15 +151,15 @@ Object[] extendedBottomUp(int[] p, int n) {
     int[] r = new int[n + 1];
     int[] s = new int[n + 1];
     r[0] = 0;
-    for (int len = 1; len <= n; len++) {
+    for (int j = 1; j <= n; j++) {
         int max = Integer.MIN_VALUE;
-        for (int i = 1; i <= len; i++) {
-            if (max < p[i - 1] + r[len - i]) {
-                max = p[i - 1] + r[len - i];
-                s[len] = i;
+        for (int i = 1; i <= j; i++) {
+            if (max < p[i - 1] + r[j - i]) {
+                max = p[i - 1] + r[j - i];
+                s[j] = i;
             }
         }
-        r[len] = max;
+        r[j] = max;
     }
     return new Object[]{r[n], s};
 }
