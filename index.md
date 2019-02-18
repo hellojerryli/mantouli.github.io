@@ -25,8 +25,6 @@
 
 * [链表 (Linked List)](data-structures/linked-list.md)
 
-* [跳跃表 (Skip List)](data-structures/skip-list.md)
-
 * [散列表 (Hash Table)](data-structures/hash-table.md)
 
 * [二叉搜索树 (Binary Search Tree)](data-structures/binary-search-tree.md)
@@ -34,6 +32,8 @@
 * [红黑树 (Red Black Tree)](data-structures/red-black-tree.md)
 
 * [AVL树 (AVL Tree)](data-structures/avl-tree.md)
+
+* [跳跃表 (Skip List)](data-structures/skip-list.md)
 
 * [随机二叉搜索树 (Treap)](data-structures/treap.md)
 
