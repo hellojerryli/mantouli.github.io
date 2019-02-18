@@ -98,10 +98,10 @@ int memorized(int[] p) {
     for (int i = 1; i <= n; i++) {
         r[i] = Integer.MIN_VALUE;
     }
-    return memorized(p, n, r);
+    return memorizedAux(p, n, r);
 }
 
-private int memorizedAux(int[] p, int n, int[] r) {
+int memorizedAux(int[] p, int n, int[] r) {
     if (r[n] >= 0) {
         return r[n];
     }
@@ -113,7 +113,7 @@ private int memorizedAux(int[] p, int n, int[] r) {
     return max;
 }
 
-public int bottomUp(int[] p) {
+int bottomUp(int[] p) {
     int n = p.length;
     int[] r = new int[n + 1];
     r[0] = 0;
