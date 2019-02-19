@@ -241,4 +241,4 @@ delete 从以 x 为根的子树中删除关键字 k。我们设计的这个过�
 
 ```
 
-尽管这个过程看起来很复杂，但对一棵高度为 h 的 B 树，delete 所需时间为 O(th) = O(t * log(t, n))。
+尽管这个过程看起来很复杂，但对一棵高度为 h 的 B 树，delete 所需时间为 O(th) = O(t log<sub>t</sub><sup>n</sup>)。
