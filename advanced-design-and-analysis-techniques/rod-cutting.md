@@ -151,7 +151,7 @@ Object[] extendedBottomUp(int[] p, int n) {
 }
 ```
 
-可以利用 extendedBottomUp 计算出来的 s[1..n]，输出长度为 n 的钢条的完整的最优切割方案。
+可以利用 extendedBottomUp 计算出来的 s[1...n]，输出长度为 n 的钢条的完整的最优切割方案。
 
 ```java
 void constructSolution(int[] s, int n) {
