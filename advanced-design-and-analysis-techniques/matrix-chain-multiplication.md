@@ -81,7 +81,7 @@ int[][] matrixMultiply(int[][] a, int[][] b) {
 m[i][j] = m[i][k] + m[k+1][j] + p[i-1] * p[k] * [pj]
 ```
 
-此递归公式假定最优分割点 k 是已知的，但实际上我们是不知道的。不过，k 只有 j - i 种可能的取值，即 k = i, i+1, ..., j-1。由于最优分割点必在其中，我们只需检查所有可能情况，找到最优解即可。因此，A<sub>i</sub><sub>i+1</sub>...A<sub>j</sub> 最小代价括号化方案的递归求解公式变为：
+此递归公式假定最优分割点 k 是已知的，但实际上我们是不知道的。不过，k 只有 j - i 种可能的取值，即 k = i, i+1, ..., j-1。由于最优分割点必在其中，我们只需检查所有可能情况，找到最优解即可。因此，A<sub>i</sub>A<sub>i+1</sub>...A<sub>j</sub> 最小代价括号化方案的递归求解公式变为：
 
 ![](../assets/images/part4/matrix-chain-multiplication2.png)
 
