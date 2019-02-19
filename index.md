@@ -46,8 +46,6 @@
 
 * [动态规划 (Dynamic Programming)](advanced-design-and-analysis-techniques/dynamic-programming.md).
 
-* [钢条切割 (Rod Cutting)](advanced-design-and-analysis-techniques/rod-cutting.md).
-
 * [矩阵链乘法 (Matrix-Chain Multiplication)](advanced-design-and-analysis-techniques/matrix-chain-multiplication.md).
 
 * [最长公共子序列 (Longest Common Subsequence)](advanced-design-and-analysis-techniques/longest-common-subsequence.md).
