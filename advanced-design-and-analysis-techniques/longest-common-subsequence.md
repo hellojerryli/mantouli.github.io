@@ -64,29 +64,27 @@ int recursive(char[] x, char[] y, int m, int n) {
 int bottomUp(char[] x, char[] y) {
     int m = x.length;
     int n = y.length;
-    int[][] L = new int[m + 1][n + 1];
+    int[][] c = new int[m + 1][n + 1];
     for (int i = 0; i <= m; i++) {
-        L[i][0] = 0;
+        c[i][0] = 0;
     }
     for (int j = 0; j <= n; j++) {
-        L[0][j] = 0;
+        c[0][j] = 0;
     }
     for (int i = 1; i <= m; i++) {
         for (int j = 1; j <= n; j++) {
             if (x[i - 1] == y[j - 1]) {
-                L[i][j] = L[i - 1][j - 1] + 1;
+                c[i][j] = c[i - 1][j - 1] + 1;
             } else {
-                L[i][j] = Math.max(L[i - 1][j], L[i][j - 1]);
+                c[i][j] = Math.max(c[i - 1][j], c[i][j - 1]);
             }
         }
     }
-    return L[m][n];
+    return c[m][n];
 }
 ```
 
-### 步骤 4：构造 LCS
-
-我们可以用 extendedBottomUp 返回的表 b 快速构造 X = <x[1], x[2], ..., x[m]> 和 Y = <y[1], y[2], ..., y[n]> 的 LCS，只需简单地从 b[m][n] 开始，并按箭头方向追踪下去即可。当在表项中遇到 TURN 时，意味着 x[i] = y[j] 是 LCS 的一个元素。按照这种方法，我们可以逆序依次构造出 LCS 的所有元素。
+bottomUp 接受两个序列 X = <x[1], x[2], ..., x[m]> 和 Y = <y[1], y[2], ..., y[n]> 为输入，它将 c[i][j] 的值保存在表 c[0..m][0..n] 中，并按行主次序（row-major order）计算表项（即首先由左至右计算 c 的第一行，然后计算第二行，依此类推），c[m][n] 保存了 X 和 Y 的 LCS 长度。下面的 extendedBottomUp 过程还维护一个表 b[1..m][1..n]，用来帮助构造最优解。b[i][j] 指向的表项对应计算 c[i][j] 时所选择的子问题最优解。
 
 ```java
 static final int LEFT = 1;
@@ -96,33 +94,39 @@ static final int TURN = 3;
 Object[] extendedBottomUp(char[] x, char[] y) {
     int m = x.length;
     int n = y.length;
-    int[][] L = new int[m + 1][n + 1];
+    int[][] c = new int[m + 1][n + 1];
     int[][] b = new int[m + 1][n + 1];
     for (int i = 0; i <= m; i++) {
-        L[i][0] = 0;
+        c[i][0] = 0;
     }
     for (int j = 0; j <= n; j++) {
-        L[0][j] = 0;
+        c[0][j] = 0;
     }
     for (int i = 1; i <= m; i++) {
         for (int j = 1; j <= n; j++) {
             if (x[i - 1] == y[j - 1]) {
-                L[i][j] = L[i - 1][j - 1] + 1;
+                c[i][j] = c[i - 1][j - 1] + 1;
                 b[i][j] = TURN;
             } else {
-                if (L[i - 1][j] >= L[i][j - 1]) {
-                    L[i][j] = L[i - 1][j];
+                if (c[i - 1][j] >= c[i][j - 1]) {
+                    c[i][j] = c[i - 1][j];
                     b[i][j] = TOP;
                 } else {
-                    L[i][j] = L[i][j - 1];
+                    c[i][j] = c[i][j - 1];
                     b[i][j] = LEFT;
                 }
             }
         }
     }
-    return new Object[]{L[m][n], b};
+    return new Object[]{c[m][n], b};
 }
+```
 
+### 步骤 4：构造 LCS
+
+我们可以用 extendedBottomUp 返回的表 b 快速构造 X = <x[1], x[2], ..., x[m]> 和 Y = <y[1], y[2], ..., y[n]> 的 LCS，只需简单地从 b[m][n] 开始，并按箭头方向追踪下去即可。当在表项中遇到 TURN 时，意味着 x[i] = y[j] 是 LCS 的一个元素。按照这种方法，我们可以逆序依次构造出 LCS 的所有元素。
+
+```java
 void constructSolution(int[][] b, char[] x, int i, int j) {
     if (i == 0 || j == 0) {
         return;
