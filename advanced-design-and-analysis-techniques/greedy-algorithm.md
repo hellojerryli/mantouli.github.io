@@ -70,7 +70,7 @@ int recursive(int[] s, int[] f, int k, int n, int a) {
 greedy 是 recursive 的一个迭代版本。它也假定输入活动已按结束时间单调递增顺序排好序。
 
 ```java
-public int greedy(int[] s, int[] f) {
+int greedy(int[] s, int[] f) {
     int n = s.length;
     int i = 0;
     int c = 0;
