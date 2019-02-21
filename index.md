@@ -61,9 +61,9 @@
 
 * [图的表示 (Representations of Graph)](graph-algorithms/representations-of-graph.md).
 
-* [广度优先搜索 (Breadth-first Search)](graph-algorithms/breadth-first-search.md).
+* [广度优先搜索 (Breadth-First Search)](graph-algorithms/breadth-first-search.md).
 
-* [深度优先搜索 (Depth-first Search)](graph-algorithms/depth-first-search.md).
+* [深度优先搜索 (Depth-First Search)](graph-algorithms/depth-first-search.md).
 
 * [最小生成树 (Minimum Spanning Tree)](graph-algorithms/minimum-spanning-tree.md).
 
