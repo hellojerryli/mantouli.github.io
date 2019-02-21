@@ -59,6 +59,20 @@
 
 ### 图算法
 
+* [图的表示 (Representations of Graph)](graph-algorithms/representations-of-graph.md).
+
+* [广度优先搜索 (Breadth-first Search)](graph-algorithms/breadth-first-search.md).
+
+* [深度优先搜索 (Depth-first Search)](graph-algorithms/depth-first-search.md).
+
+* [最小生成树 (Minimum Spanning Tree)](graph-algorithms/minimum-spanning-tree.md).
+
+* [单源最短路径 (Single-Source Shortest Paths)](graph-algorithms/single-source-shortest-paths.md).
+
+* [所有节点对的最短路径 (All-Pairs Shortest Paths)](graph-algorithms/all-pairs-shortest-paths.md).
+
+* [最大流 (Maximum Flow)](graph-algorithms/maximum-flow.md).
+
 
 ### 字符串
 
