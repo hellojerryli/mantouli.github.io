@@ -8,9 +8,121 @@
 
 无向图的两种表示。(a) 一个有 5 个结点和 7 条边的无向图 G。(b) G 的邻接链表表示。(c) G 的邻接矩阵表示。
 
+```java
+public class Graph {
+    int V;
+    int E;
+    Vertex[] vertices;
+    LinkedList<Edge>[] adj;
+    
+    public Graph(int V) {
+        this.V = V;
+        E = 0;
+        vertices = new Vertex[V];
+        adj = new LinkedList[V];
+        for (int i = 0; i < V; i++) {
+            vertices[i] = new Vertex(i);
+            adj[i] = new LinkedList<>();
+        }
+    }
+    
+    Graph(int V, String[] labels) {
+        this.V = V;
+        E = 0;
+        vertices = new Vertex[V];
+        adj = new LinkedList[V];
+        for (int i = 0; i < V; i++) {
+            vertices[i] = new Vertex(i, labels[i]);
+            adj[i] = new LinkedList<>();
+        }
+    }
+    
+    void addEdge(int startId, int endId) {
+        Edge e = new Edge(startId, endId);
+        adj[startId].add(e);
+        adj[endId].add(e);
+        E += 2;
+    }
+    
+    void addEdge(int startId, int endId, int weight) {
+        Edge e = new Edge(startId, endId, weight);
+        adj[startId].add(e);
+        adj[endId].add(e);
+        E += 2;
+    }
+    
+    Edge[] allEdges() {
+        Edge[] edges = new Edge[E];
+        int i = 0;
+        for (int u = 0; u < V; u++) {
+            for (Edge e : adj[u]) {
+                edges[i++] = e;
+            }
+        }
+        return edges;
+    }
+}
+```
+
 ![](../assets/images/graph-algorithms/graph2.png)
 
 有向图的两种表示。(a) 一个有 6 个结点和 8 条边的有向图 G。(b) G 的邻接链表表示。
+
+```java
+public class Digraph {
+    int V;
+    int E;
+    Vertex[] vertices;
+    String[] labels;
+    LinkedList<Edge>[] adj;
+    
+    Digraph(int V) {
+        this.V = V;
+        E = 0;
+        vertices = new Vertex[V];
+        adj = new LinkedList[V];
+        for (int i = 0; i < V; i++) {
+            vertices[i] = new Vertex(i);
+            adj[i] = new LinkedList<>();
+        }
+    }
+    
+    Digraph(int V, String[] labels) {
+        this.V = V;
+        E = 0;
+        vertices = new Vertex[V];
+        this.labels = labels;
+        adj = new LinkedList[V];
+        for (int i = 0; i < V; i++) {
+            vertices[i] = new Vertex(i, labels[i]);
+            adj[i] = new LinkedList<>();
+        }
+    }
+    
+    void addEdge(int startId, int endId) {
+        Edge e = new Edge(startId, endId);
+        adj[startId].add(e);
+        E++;
+    }
+
+    void addEdge(int startId, int endId, int weight) {
+        Edge e = new Edge(startId, endId, weight);
+        adj[startId].add(e);
+        E++;
+    }
+    
+    Edge[] allEdges() {
+        Edge[] edges = new Edge[E];
+        int i = 0;
+        for (int j = 0; j < V; j++) {
+            for (Edge e : adj[j]) {
+                edges[i++] = e;
+            }
+        }
+        return edges;
+    }
+}
+```
 
 如果 G 是一个有向图，则对于边 (u, v) 来说，结点 v 将出现在链表 adj[u] 里，因此，所有邻接链表的长度值和等于 E。如果 G 是一个无向图，则对于边 (u, v) 来说，结点 v 将出现在链表 adj[u] 里，结点 u 将出现在链表 adj[v] 里，因此，所有邻接链表的长度值和等于 2E。但不管有向图还是无向图，邻接链表表示法的存储空间需求均为 Θ(V + E)，这正是我们所希望的数量级。
 
