@@ -52,16 +52,16 @@ void BFS(Graph graph, int rootId) {
     root.d = 0;
     root.pre = null;
     Queue<Vertex> queue = new LinkedList<>();
-    queue.offer(root);
+    queue.add(root);
     while (!queue.isEmpty()) {
-        Vertex u = queue.poll();
+        Vertex u = queue.remove();
         for (Edge e : graph.adj[u.id]) {
             Vertex v = graph.vertices[e.other(u.id)];
             if (!v.isVisited) {
                 v.isVisited = true;
                 v.d = u.d + 1;
                 v.pre = u;
-                queue.offer(v);
+                queue.add(v);
             }
         }
         u.isVisited = true;
