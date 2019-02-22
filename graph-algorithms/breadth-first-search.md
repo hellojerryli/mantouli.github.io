@@ -13,34 +13,32 @@
 下面给出的广度优先搜索算法中，假定输入图 G = (V, E) 是以邻接链表所表示的。该算法为图中每个结点赋予了一些额外的属性：我们将每个结点 u 是否被发现存放在属性 u.isVisited 里，将 u 的前驱结点存放在属性 u.pre 里，如果 u 没有前驱结点（例如，如果 u = s 或者结点 u 尚未被发现），则 u.pre = null。属性 u.d 记录的是广度优先搜索算法所计算出的从源结点 s 到结点 u 之间的距离。该算法使用一个先进先出的队列来管理灰色结点集。
 
 ```java
-public class BreadthFirstSearch {
-    void BFS(Graph graph, int rootId) {
-        int V = graph.getV();
-        for (int i = 0; i < V; i++) {
-            Vertex u = graph.getVertexById(i);
-            u.isVisited = false;
-            u.d = Integer.MAX_VALUE;
-            u.pre = null;
-        }
-        Vertex root = graph.getVertexById(rootId);
-        root.isVisited = true;
-        root.d = 0;
-        root.pre = null;
-        Queue<Vertex> queue = new LinkedList<>();
-        queue.offer(root);
-        while (!queue.isEmpty()) {
-            Vertex u = queue.poll();
-            for (Edge e : graph.getAdj(u.id)) {
-                Vertex v = graph.getVertexById(e.other(u.id));
-                if (!v.isVisited) {
-                    v.isVisited = true;
-                    v.d = u.d + 1;
-                    v.pre = u;
-                    queue.offer(v);
-                }
+void BFS(Graph graph, int rootId) {
+    int V = graph.V;
+    for (int i = 0; i < V; i++) {
+        Vertex u = graph.vertices[i];
+        u.isVisited = false;
+        u.d = Integer.MAX_VALUE;
+        u.pre = null;
+    }
+    Vertex root = graph.vertices[rootId];
+    root.isVisited = true;
+    root.d = 0;
+    root.pre = null;
+    Queue<Vertex> queue = new LinkedList<>();
+    queue.offer(root);
+    while (!queue.isEmpty()) {
+        Vertex u = queue.poll();
+        for (Edge e : graph.adj[u.id]) {
+            Vertex v = graph.vertices[e.other(u.id)];
+            if (!v.isVisited) {
+                v.isVisited = true;
+                v.d = u.d + 1;
+                v.pre = u;
+                queue.offer(v);
             }
-            u.isVisited = true;
         }
+        u.isVisited = true;
     }
 }
 ```
