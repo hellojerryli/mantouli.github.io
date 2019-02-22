@@ -10,13 +10,13 @@
 
 在执行广度优先搜索的过程中将构造出一棵广度优先树。一开始，该树仅含有根结点，就是源结点 s。在扫描已发现结点 u 的邻接链表时，每当发现一个白色结点 v，就将结点 v 和边 (u, v) 同时加入该棵树中。在广度优先搜索树中，称结点 u 是结点 v 的前驱或者父结点。由于每个结点最多被发现一次，它最多只有一个父结点。广度优先树中的祖先和后代关系皆以相对于根结点 s 的位置来进行定义：如果结点 u 是从根结点 s 到结点 v 的简单路径上的一个结点，则结点 u 是结点 v 的祖先，结点 v 是结点 u 的后代。
 
-下面给出的广度优先搜索算法中，假定输入图 G = (V, E) 是以邻接链表所表示的。该算法为图中每个结点赋予了一些额外的属性：我们将每个结点 u 是否被发现存放在属性 u.isVisited 里，将 u 的前驱结点存放在属性 u.pre 里，如果 u 没有前驱结点（例如，如果 u = s 或者结点 u 尚未被发现），则 u.pre = null。属性 u.d 记录的是广度优先搜索算法所计算出的从源结点 s 到结点 u 之间的距离。该算法使用一个先进先出的队列来管理灰色结点集。
+下面给出的广度优先搜索算法中，假定输入图 G = (V, E) 是以邻接链表所表示的。该算法为图中每个结点赋予了一些额外的属性：我们将每个结点 u 是否被发现存放在属性 u.visited 里，将 u 的前驱结点存放在属性 u.pre 里，如果 u 没有前驱结点（例如，如果 u = s 或者结点 u 尚未被发现），则 u.pre = null。属性 u.d 记录的是广度优先搜索算法所计算出的从源结点 s 到结点 u 之间的距离。该算法使用一个先进先出的队列来管理灰色结点集。
 
 ```java
 class Vertex {
     // Other fields and methods ...
 
-    boolean isVisited;
+    boolean visited;
     int d;
     Vertex pre;
 }
@@ -43,12 +43,12 @@ void BFS(Graph graph, int rootId) {
     int V = graph.V;
     for (int i = 0; i < V; i++) {
         Vertex u = graph.vertices[i];
-        u.isVisited = false;
+        u.visited = false;
         u.d = Integer.MAX_VALUE;
         u.pre = null;
     }
     Vertex root = graph.vertices[rootId];
-    root.isVisited = true;
+    root.visited = true;
     root.d = 0;
     root.pre = null;
     Queue<Vertex> queue = new LinkedList<>();
@@ -57,14 +57,14 @@ void BFS(Graph graph, int rootId) {
         Vertex u = queue.remove();
         for (Edge e : graph.adj[u.id]) {
             Vertex v = graph.vertices[e.other(u.id)];
-            if (!v.isVisited) {
-                v.isVisited = true;
+            if (!v.visited) {
+                v.visited = true;
                 v.d = u.d + 1;
                 v.pre = u;
                 queue.add(v);
             }
         }
-        u.isVisited = true;
+        u.visited = true;
     }
 }
 ```
@@ -79,7 +79,7 @@ BFS 在无向图上的运行过程。添加了阴影的边是被 BFS 发现的�
 
 ### 分析
 
-我们来分析该算法的运行时间。在初始化操作结束后，广度优先搜索不会再给任何结点涂上白色，因此，if (!v.isVisited) 的测试可以确保每个结点的入队次数最多为一次，因而出队最多一次。入队和出队的时间均为 O(1)，因此，对队列进行操作的总时间为 O(V)。因为算法只在一个结点出队的时候才对该结点的邻接链表进行扫描，所以每个邻接链表最多只扫描一次。由于所有邻接链表的长度之和是 Θ(E)，用于扫描邻接链表的总时间为 O(E)。初始化操作的成本是 O(V)，因此，广度优先搜索的总运行时间为 O(V + E)，即广度优先搜索的运行时间是图 G 的链接链表大小的一个线性函数。
+我们来分析该算法的运行时间。在初始化操作结束后，广度优先搜索不会再给任何结点涂上白色，因此，if (!v.visited) 的测试可以确保每个结点的入队次数最多为一次，因而出队最多一次。入队和出队的时间均为 O(1)，因此，对队列进行操作的总时间为 O(V)。因为算法只在一个结点出队的时候才对该结点的邻接链表进行扫描，所以每个邻接链表最多只扫描一次。由于所有邻接链表的长度之和是 Θ(E)，用于扫描邻接链表的总时间为 O(E)。初始化操作的成本是 O(V)，因此，广度优先搜索的总运行时间为 O(V + E)，即广度优先搜索的运行时间是图 G 的链接链表大小的一个线性函数。
 
 ### 最短路径
 
