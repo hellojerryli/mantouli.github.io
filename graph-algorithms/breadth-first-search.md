@@ -17,8 +17,8 @@ class Vertex {
     // Other fields and methods ...
 
     boolean visited;
-    int d;
     Vertex pre;
+    int d;
 }
 
 class Edge {
@@ -34,7 +34,7 @@ class Edge {
         } else if (vertexId == endId) {
             return startId;
         } else {
-            throw new IllegalArgumentException("No such vertex in this edge");
+            throw new RuntimeException("No such vertex in this edge");
         }
     }
 }
@@ -75,7 +75,7 @@ void BFS(Graph graph, int rootId) {
 
 BFS 在无向图上的运行过程。添加了阴影的边是被 BFS 发现的边，每个结点 u 里面记录的是 u.d 的值。图中还给出了算法在 while 循环每次开始时队列中的内容。结点距离标记在队列相应结点的下方。
 
-广度优先搜索的结果可能依赖于对每个结点的邻接结点的访问顺序，广度优先树可能会不一样，但算法所计算出来的距离 d 都是一样的。
+广度优先搜索的结果依赖于对每个结点的邻接结点的访问顺序，广度优先树可能会不一样，但算法所计算出来的距离 d 都是一样的。
 
 ### 分析
 
