@@ -90,31 +90,46 @@ DFS 的运行时间是多少呢？如果排除 visit 的时间，DFS 的两个 f
 
 ### 拓扑排序
 
+对于一个有向无环图 G = (V, E) 来说，其拓扑排序是 G 中所有结点的一种线性次序，该次序满足如下条件：如果图 G 包含边 (u, v)，则结点 u 在拓扑排序中处于结点 v 的前面（如果图 G 包含环路，则不可能排出一个线性次序）。可以将图的拓扑排序看作是将图的所有结点在一条水平线上排开，图的所有有向边都从左指向右。因此，拓扑排序与通常意义上的“排序”是不同的。
 
+许多实际应用都需要使用有向无环图来指明事件的优先次序，下图描述的是早上起床穿衣所发生的事件的次序图。必须先穿某些衣服，才能再穿其它衣服（比如先穿袜子后才能再穿鞋），有些服饰则可以以任意顺序穿上（比如袜子和裤子之间可以以任意次序进行穿戴）。在下图 (a) 所示的有向无环图中，有向边 (u, v) 表明服装 u 必须在服装 v 之前穿上，对该有向无环图进行拓扑排序所获得的就是一种合理的穿衣次序。下图 (b) 将拓扑排序后的有向无环图在一条水平线上展示出来，在该水平线上，所有的有向边都从左指向右。
 
+![](../assets/images/graph-algorithms/DFS3.png)
 
+(a) 对早上的穿衣进行的拓扑排序。每条有向边 (u, v) 表明服装 u 必须在服装 v 之前穿上。深度优先搜索的发现时间和完成时间注明在每个结点旁边。(b) 以拓扑排序展示的同一个图，所有的结点按照其完成时间的逆序被排成从左至右的一条水平线，所有的有向边都从左指向右。
 
+下面的算法可以对一个有向无环图进行拓扑排序：
 
+```java
+LinkedList<Vertex> vertices = new LinkedList<>();
 
+LinkedList<Vertex> topologicalSort(Digraph digraph) {
+    DFS(digraph);
+    return vertices;
+}
 
+void DFS(Digraph digraph) {
+    int V = digraph.V;
+    for (int i = 0; i < V; i++) {
+        Vertex u = digraph.vertices[i];
+        if (!u.visited) {
+            visit(digraph, u);
+        }
+    }
+}
 
+void visit(Digraph digraph, Vertex u) {
+    u.visited = true;
+    for (Edge e : digraph.adj[u.id]) {
+        Vertex v = digraph.vertices[e.other(u.id)];
+        if (!v.visited) {
+            visit(digraph, v);
+        }
+    }
+    vertices.add(0, u);
+}
+```
 
+上图 (b) 描述的是经过拓扑排序后的结点次序，这个次序与结点的完成时间恰好相反。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+我们可以在 Θ(V + E) 的时间内完成拓扑排序。因为深度优先搜索算法的运行时间为 Θ(V + E)，将结点插入到链表最前端所需的时间为 O(1)，而一共只有 ∣V∣ 个结点需要插入。
