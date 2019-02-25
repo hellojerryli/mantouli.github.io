@@ -16,20 +16,20 @@ AVL 树是一种高度平衡的（height balanced）二叉搜索树：对每一�
 
 
 ```java
-public class AVLTree {
-    Node root;
-    
-    class Node {
-        int key;
-        int height;
-        Node left;
-        Node right;
+class Node {
+    int key;
+    int height;
+    Node left;
+    Node right;
 
-        Node(int key) {
-            this.key = key;
-            height = 1;
-        }
+    Node(int key) {
+        this.key = key;
+        height = 1;
     }
+}
+
+class AVLTree {
+    Node root;
 }
 ```
 
