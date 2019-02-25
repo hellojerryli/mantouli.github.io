@@ -84,8 +84,6 @@ int getDifference(Node node) {
 
 **1. y 是 z 的左孩子， x 是 y 的左孩子**
 
-令 T1, T2, T3 和 T4 为任意子树。
-
 **2. y 是 z 的左孩子，x 是 y 的右孩子**
 
 **3. y 是 z 的右孩子，x 是 y 的右孩子**
