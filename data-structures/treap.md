@@ -13,7 +13,7 @@
 这两个性质的结合就是这种树被称为 treap 树的原因：它同时具有二叉搜索树和堆的特征。
 
 ```java
-public class Treap {
+class Treap {
     Node root;
     
     class Node {
@@ -62,18 +62,18 @@ Node search(Node node, int key) {
 ![](../assets/images/part3/red-black-tree3.png)
 
 ```java
-Node rightRotate(Node p) {
-    Node l = p.left;
-    p.left = l.right;
-    l.right = p;
-    return l;
-}
-
 Node leftRotate(Node p) {
     Node r = p.right;
     p.right = r.left;
     r.left = p;
     return r;
+}
+
+Node rightRotate(Node p) {
+    Node l = p.left;
+    p.left = l.right;
+    l.right = p;
+    return l;
 }
 ```
 
@@ -112,3 +112,52 @@ Node insert(Node node, int key) {
 
 ### 删除
 
+Treap 的删除和插入有所不同，令被删除的结点为 x，删除分为以下几种情况：
+
+1. 如果 x 是一个叶结点，则直接删除。
+
+2. 如果 x 有一个子结点为空，则用 x 的另一个子结点替代 x。
+
+3. 如果 x 的左右孩子都不为空，那么找到 x 的左右孩子中 priority 较大的孩子 y。  
+   如果 y 是 x 的右孩子，那么对 x 执行左旋，产生新的 x，并在新 x 的左子树上递归调用 delete。
+   如果 y 是 x 的左孩子，那么对 x 执行右旋，产生新的 x，并在新 x 的右子树上递归调用 delete。
+
+```java
+void delete(int key) {
+    root = delete(root, key);
+}
+
+Node delete(Node node, int key) {
+    if (node == null) {
+        return null;
+    }
+
+    if (key < node.key) {
+        node.left = delete(node.left, key);
+    } else if (key > node.key) {
+        node.right = delete(node.right, key);
+    } else {
+        // If the key is same as root'key, then this is the node to be deleted
+
+        if (node.left == null) {
+            // If left is null, make right child as root
+            node = node.right;
+        } else if (node.right == null) {
+            // If right is null, make left child as root
+            node = node.left;
+        } else {
+            // Both left and right are not null
+
+            if (node.left.priority < node.right.priority) {
+                node = leftRotate(node);
+                node.left = delete(node.left, key);
+            } else {
+                node = rightRotate(node);
+                node.right = delete(node.right, key);
+            }
+        }
+    }
+
+    return node;
+}
+```
