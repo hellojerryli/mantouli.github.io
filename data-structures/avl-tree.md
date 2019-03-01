@@ -118,7 +118,7 @@ T1   y     Left Rotate(z)       z      x
      T3  T4
 ```
 
-**4. y 是 z 的右孩子，x 是 y 的左孩子**
+**4. y 是 z 的右孩子，x 是 y 的左孩子（Right Left Case）**
 
 ```
    z                            z                            x
