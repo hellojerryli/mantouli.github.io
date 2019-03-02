@@ -91,7 +91,7 @@ Node insert(Node node, int key) {
         if (node.left.priority > node.priority) {
             node = rightRotate(node);
         }
-    } else {
+    } else if (key > node.key) {
         node.right = insert(node.right, key);
         if (node.right.priority > node.priority) {
             node = leftRotate(node);
