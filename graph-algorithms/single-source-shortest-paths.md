@@ -66,7 +66,7 @@ E<sub>pre</sub> = {(v.pre, v) ∈ E : v ∈ V<sub>pre</sub> - {s}}
 
 3. 对于所有的结点 v ∈ V'，图 G' 中从结点 s 到结点 v 的唯一简单路径是图 G 中从结点 s 到结点 v 的一条最短路径。
 
-需要指出的是，最短路径不一定是唯一的，最短路径树也不一定是唯一的，例如，下图描述的是一个带权重的有向图和两棵根结点相同的最短路径树。
+需要指出的是，最短路径不一定是唯一的，最短路径树也不一定是唯一的。例如，下图描述的是一个带权重的有向图和两棵根结点相同的最短路径树。
 
 ![](../assets/images/part4/single-source-shortest-path3.png)
 
@@ -74,10 +74,16 @@ E<sub>pre</sub> = {(v.pre, v) ∈ E : v ∈ V<sub>pre</sub> - {s}}
 
 #### 松弛操作
 
-对每个结点 v 来说，我们维持一个属性 v.d 用来记录从源结点 s 到结点 v 的最短路径权重的上界。我们称 v.d 为 s 到 v 的最短路径估计。我们用下面运行时间为 Θ(V) 的算法来对最短路径估计和前驱结点进行初始化：
+对每个结点 v 来说，我们维持一个属性 v.d，用来记录从源结点 s 到结点 v 的最短路径权重的上界。我们称 v.d 为 s 到 v 的最短路径估计。我们用下面运行时间为 Θ(V) 的算法来对最短路径估计和前驱结点进行初始化：
 
 ```java
-
+void initializeSingleSource(Digraph digraph, Vertex root) {
+    for (Vertex u : digraph.vertices) {
+        u.d = Integer.MAX_VALUE;
+        u.pre = null;
+    }
+    root.d = 0;
+}
 ```
 
 在初始化操作结束后，对于所有的结点 v ∈ V，我们有 v.pre = null, s.d = 0，对于所有的结点 v ∈ V - {s}，我们有 v.d = ∞。
