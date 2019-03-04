@@ -96,19 +96,19 @@ class PrimMinimumSpanningTree {
             u.key = Integer.MAX_VALUE;
         }
         graph.vertices[0].key = 0;
-        PriorityQueue<Vertex> priorityQueue = new PriorityQueue<>();
+        PriorityQueue<Vertex> minPriorityQueue = new PriorityQueue<>();
         for (Vertex u : graph.vertices) {
-            priorityQueue.add(u);
+            minPriorityQueue.add(u);
         }
-        while (!priorityQueue.isEmpty()) {
-            Vertex u = priorityQueue.remove();
+        while (!minPriorityQueue.isEmpty()) {
+            Vertex u = minPriorityQueue.remove();
             for (Edge e : graph.adj[u.id]) {
                 Vertex v = graph.vertices[e.other(u.id)];
-                if (priorityQueue.contains(v) && e.weight < v.key) {
+                if (minPriorityQueue.contains(v) && e.weight < v.key) {
                     v.parent = u;
                     v.key = e.weight;
-                    priorityQueue.remove(v);
-                    priorityQueue.add(v);
+                    minPriorityQueue.remove(v);
+                    minPriorityQueue.add(v);
                 }
             }
         }
