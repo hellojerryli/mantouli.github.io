@@ -166,10 +166,20 @@ Bellman-Ford 算法的执行过程。源结点为 s，结点中的数值为该�
 
 根据结点的拓扑排序来对带权重的有向无环图 G = (V, E) 进行边的松弛操作，我们可以在 Θ(V + E) 的时间内计算出从单个源结点到所有结点之间的最短路径。在有向无环图中，即使存在权重为负值的边，但因为没有权重为负值的环路，最短路径都是存在的。
 
-我们的算法首先对有向无环图进行拓扑排序，以便确定结点之间的一个线性次序。如果有向无环图包含从结点 u 到结点 v 的一条路径，则 u 在拓扑排序的次序中位于结点 v 的前面。我们只需要按照拓扑排序的次序对结点进行一遍处理即可。每次对一个结点进行处理时，我们对从该结点出发的所有的边进行松弛操作。
+我们的算法首先对有向无环图进行拓扑排序，以便确定结点之间的一个线性次序。如果有向无环图包含从结点 u 到结点 v 的一条路径，则 u 在拓扑排序的次序中位于结点 v 的前面。我们只需要按照拓扑排序的次序对结点进行一遍处理即可。每次对一个结点进行处理时，我们对从该结点发出的所有的边进行松弛操作。
 
 ```java
-
+void dagShortestPaths(Digraph digraph, int rootId) {
+    LinkedList<Vertex> sortedVertices = topologicalSort(digraph);
+    Vertex root = digraph.vertices[rootId];
+    initializeSingleSource(digraph, root);
+    for (Vertex sortedVertex : sortedVertices) {
+        Vertex u = digraph.vertices[sortedVertex.id];
+        for (Edge e : digraph.adj[u.id]) {
+            relax(digraph, e);
+        }
+    }
+}
 ```
 
 下图描述的是 dagShortestPaths 的执行过程。
