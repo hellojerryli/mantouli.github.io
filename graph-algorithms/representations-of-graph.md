@@ -30,6 +30,20 @@ class Edge {
         this.endId = endId;
         this.weight = weight;
     }
+    
+    int either() {
+        return startId;
+    }
+
+    int other(int vertexId) {
+        if (vertexId == startId) {
+            return endId;
+        } else if (vertexId == endId) {
+            return startId;
+        } else {
+            throw new RuntimeException("No such vertex in this edge");
+        }
+    }
 }
 ```
 
