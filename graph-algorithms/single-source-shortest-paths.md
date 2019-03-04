@@ -108,11 +108,11 @@ void relax(Digraph digraph, Edge e) {
 
 对权重 w(u, v) = 2 的边 (u, v) 进行的松弛操作。对每个结点的最短路径估计写在结点里面。(a) 因为在松弛操作前有 v.d > u.d + w(u, v)，因而 v.d 的值减少。(b) 在对边进行松弛操作前有 v.d <= u.d + w(u, v)，因此，松弛操作维持 v.d 的取值不变。
 
-本文后面的每个算法都将调用算法 initializeSingleSource，然后重复对边进行松弛，而且，松弛是唯一导致最短路径估计和前驱结点发生变化的操作。后面讨论的算法之间的不同之处是对每条边进行松弛的次数和松弛边的次序有所不同。Dijkstra 算法和用于有向无环图的最短路径算法对每条边仅松弛一次，Bellman-Ford 算法则是对每条边松弛 ∣V∣ - 1 次。
+后面的每个最短路径算法都将调用 initializeSingleSource，然后重复对边进行松弛。而且，松弛是唯一导致最短路径估计和前驱结点发生变化的操作。这些算法之间的不同之处是对每条边进行松弛的次数和松弛边的次序有所不同。Dijkstra 算法和用于有向无环图的最短路径算法对每条边仅松弛一次，Bellman-Ford 算法则对每条边松弛 ∣V∣ - 1 次。
 
 #### 最短路径和松弛操作的性质
 
-以下是最短路径和松弛操作的一些性质，它们成立的前提是必须调用 initializeSingleSource(G, s) 来对图进行初始化，并且所有对最短路径估计和前驱子图所进行的改变都是通过一系列的松弛步骤来实现的。
+以下是最短路径和松弛操作的一些性质，它们成立的前提是必须调用 initializeSingleSource 来对图进行初始化，并且所有对最短路径估计和前驱子图所进行的改变都是通过一系列的松弛步骤来实现的。
 
 三角不等式性质：对任何边 (u, v) ∈ E，我们有 δ(s, v) <= δ(s, u) + w(u, v)。
 
@@ -120,9 +120,9 @@ void relax(Digraph digraph, Edge e) {
 
 非路径性质：如果从结点 s 到结点 v 之间不存在路径，则总是有 v.d = δ(s, v) = ∞。
 
-收敛性质：对于某些结点 u, v ∈ V，如果 s --...--> u -> v 是图 G 中的一条最短路径，并且在对边 (u, v) 进行松弛前的任意时间有 u.d = δ(s, u)，则在之后的所有时间有 v.d = δ(s, v)。
+收敛性质：对于某些结点 u, v ∈ V，如果 s ~~> u -> v 是图 G 中的一条最短路径，并且在对边 (u, v) 进行松弛前的任意时间有 u.d = δ(s, u)，则在之后的所有时间有 v.d = δ(s, v)。
 
-路径松弛性质：如果 p = <v<sub>0</sub>, v<sub>1</sub>, ..., v<sub>k</sub>> 是从源结点 s = v<sub>0</sub> 到结点 v<sub>k</sub> 的一条最短路径，并且我们对 p 中的边所进行松弛的次序为 (v<sub>0</sub>, v<sub>1</sub>), (v<sub>1</sub>, v<sub>2</sub>), ..., (v<sub>k-1</sub>, v<sub>k</sub>)，则 v<sub>k</sub>.d = δ(s, v<sub>k</sub>)。该性质的成立于任何其它的松弛操作无关，即使这些松弛操作是与对 p 上的边所进行的松弛操作穿插进行的。
+路径松弛性质：如果 p = <v<sub>0</sub>, v<sub>1</sub>, ..., v<sub>k</sub>> 是从源结点 s = v<sub>0</sub> 到结点 v<sub>k</sub> 的一条最短路径，并且我们对 p 中的边所进行松弛的次序为 (v<sub>0</sub>, v<sub>1</sub>), (v<sub>1</sub>, v<sub>2</sub>), ..., (v<sub>k-1</sub>, v<sub>k</sub>)，则 v<sub>k</sub>.d = δ(s, v<sub>k</sub>)。该性质的成立与任何其它的松弛操作无关，即使这些松弛操作是与对 p 上的边所进行的松弛操作穿插进行的。
 
 前驱子图性质：对于所有的结点 v ∈ V，一旦 v.d = δ(s, v)，则前驱子图是一棵根结点为 s 的最短路径树。
 
@@ -130,10 +130,28 @@ void relax(Digraph digraph, Edge e) {
 
 Bellman-Ford 算法解决的是一般情况下的单源最短路径问题，在这里，边的权重可以为负值。给定带权重的有向图 G = (V, E) 和权重函数 w: E -> R，Bellman-Ford 算法返回一个布尔值，以表明是否存在一个从源结点可以到达的权重为负值的环路。如果存在这样一个环路，算法将告诉我们不存在解决方案。如果没有这种环路存在，算法将给出最短路径和它们的权重。
 
-Bellman-Ford 算法通过对边进行松弛操作来渐进地降低从源结点 s 到每个结点 v 的最短路径的估计值 v.d，直到该估计值与实际的最短路径权重 δ(s, v) 相同时为止。该算法返回 true 值当且仅当输入图不包含可以从源结点到达的权重为负值的环路。
+Bellman-Ford 算法通过对边进行松弛操作来渐近地降低从源结点 s 到每个结点 v 的最短路径的估计值 v.d，直到该估计值与实际的最短路径权重 δ(s, v) 相同时为止。该算法返回 true 值当且仅当输入图不包含可以从源结点到达的权重为负值的环路。
 
 ```java
-
+boolean bellmanFord(Digraph digraph, int rootId) {
+    Vertex root = digraph.vertices[rootId];
+    initializeSingleSource(digraph, root);
+    int V = digraph.getV();
+    for (int i = 0; i < V - 1; i++) {
+        for (Edge e : digraph.allEdges()) {
+            relax(digraph, e);
+        }
+    }
+    for (Edge e : digraph.allEdges()) {
+        Vertex u = digraph.vertices[e.either()];
+        Vertex v = digraph.vertices[e.other(u.id)];
+        int weight = e.weight;
+        if (v.d > u.d + weight) {
+            return false;
+        }
+    }
+    return true;
+}
 ```
 
 下图描述的是在有 5 个结点的图上运行 Bellman-Ford 算法的过程。在算法第 1 行对所有结点的 d 值和 pre 值进行初始化后，算法对图的每条边进行 ∣V∣ - 1 次处理，每一次处理对应的是算法第 2 ~ 4 行 for 循环的一次循环，该循环对图的每条边进行一次松弛操作。图 (b) ~ (e) 描述的是对边进行 4 次松弛操作时，每一次松弛后的算法状态。在进行了 ∣V∣ - 1 次松弛操作后，算法第 5 ~ 8 行负责检查图中是否存在权重为负值的环路并返回与之相适应的布尔值。
