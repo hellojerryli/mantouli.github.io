@@ -12,6 +12,8 @@
 
 这两个性质的结合就是这种树被称为 treap 树的原因：它同时具有二叉搜索树和堆的特征（但 treap 和二叉堆有一点不同，就是二叉堆必须是完全二叉树，而 treap 并不一定是）。
 
+![](../assets/images/part2/treap1.png)
+
 ```java
 class Treap {
     Node root;
