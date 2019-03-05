@@ -42,7 +42,7 @@ currentLevel 代表跳跃表目前的层数。
 
 maxLevel 属性是跳跃表的最大层数，它可以通过以下公式计算得到：
 
-> L(n) = -log<sub>2</sub><sup>n</sup> 
+> L(n) = log<sub>2</sub><sup>n</sup> 
 
 每个结点都有一个 forward[0...level+1] 属性，结点在第 i 层的 next 结点存储在 forward[i] 中。例如，对于结点 30 来说，其 forward[0] 存储了第 0 层的 next 结点 43，forward[1] 存储了第 1 层的 next 结点 57。
 
