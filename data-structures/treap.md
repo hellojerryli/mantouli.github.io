@@ -36,7 +36,7 @@ class Treap {
 
 ### 插入
 
-用以下方式考虑 treap 树是会有帮助的。假设将已有相应关键字的结点 x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>n</sub> 插入到一棵 treap 树内，得到的 treap 树是通过将这些结点以它们的优先级（随机选取的）顺序插入一棵正常的二叉搜索树形成的，即 x<sub>i</sub>.priority < x<sub>j</sub>.priority 表示 x<sub>i</sub> 在 x<sub>j</sub> 之前被插入。
+用以下方式考虑 treap 树是会有帮助的。假设将已有相应关键字的结点 x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>n</sub> 插入到一棵 treap 树内，得到的 treap 树是通过将这些结点以它们的优先级（随机选取的）顺序插入一棵正常的二叉搜索树形成的，即 x<sub>i</sub>.priority < x<sub>j</sub>.priority 表示 x<sub>i</sub> 在 x<sub>j</sub> 之前被插入。这样的话，treap 是有一个随机附加域满足堆的性质的二叉搜索树，其结构相当于以随机数据插入的二叉搜索树。
 
 给定一个已有相应关键字和优先级（互异）的结点 x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>n</sub> 组成的集合，存在唯一的一棵 treap 树与这些结点相关联。
 
@@ -46,7 +46,7 @@ treap 树的期望高度是 Θ(lgn)，因此在 treap 树内查找一个值所�
 
 treap 插入操作。(a) 在插入之前的原 treap 树。(b) 插入一个关键字为 C、优先级为 25 的结点之后的 treap 树。(c) ~ (d) 插入一个关键字为 D、优先级为 9 的结点时的中间阶段。(e) 在 (c) 和 (d) 的插入完成后的 treap 树。(f) 在插入一个关键字为 F、优先级为 2 的结点后的 treap 树。
 
-首先以普通二叉搜索树的方式插入一个新结点，这个结点被赋予了一个随机的 priority 值，所以最大堆性质可能会被破坏，因此需要调整树的结构以维持最大堆性质。树的结构调节是通过旋转来实现的：
+首先以普通二叉搜索树的方式插入一个新结点，这个结点被赋予了一个随机的 priority 值，所以最小堆性质可能会被破坏，因此需要调整树的结构以维持最小堆性质。树的结构调节是通过旋转来实现的：
 
 ![](../assets/images/part2/red-black-tree3.png)
 
@@ -79,12 +79,12 @@ Node insert(Node node, int key) {
     }
     if (key < node.key) {
         node.left = insert(node.left, key);
-        if (node.left.priority > node.priority) {
+        if (node.left.priority < node.priority) {
             node = rightRotate(node);
         }
     } else if (key > node.key) {
         node.right = insert(node.right, key);
-        if (node.right.priority > node.priority) {
+        if (node.right.priority < node.priority) {
             node = leftRotate(node);
         }
     }
@@ -98,11 +98,9 @@ Treap 的删除和插入有所不同，令被删除的结点为 x，删除分为
 
 1. 如果 x 是一个叶结点，则直接删除。
 
-2. 如果 x 有一个子结点为空，则用 x 的另一个子结点替代 x。
+2. 如果 x 有一个子结点为空，则将 x 的另一个孩子赋值给它。
 
-3. 如果 x 的左右孩子都不为空，那么找到 x 的左右孩子中 priority 较大的孩子 y。  
-   如果 y 是 x 的右孩子，那么对 x 执行左旋，产生新的 x，并在新 x 的左子树上递归调用 delete。
-   如果 y 是 x 的左孩子，那么对 x 执行右旋，产生新的 x，并在新 x 的右子树上递归调用 delete。
+3. 如果 x 的左右孩子都不为空，则进行相应的旋转，具体的方法就是每次找到优先级较小的孩子结点，向与其相反的方向旋转，直到该结点为上述情况之一，然后进行删除。
 
 ```java
 void delete(int key) {
@@ -124,11 +122,11 @@ Node delete(Node node, int key) {
             node = node.left;
         } else {
             if (node.left.priority < node.right.priority) {
-                node = leftRotate(node);
-                node.left = delete(node.left, key);
-            } else {
                 node = rightRotate(node);
                 node.right = delete(node.right, key);
+            } else {
+                node = leftRotate(node);
+                node.left = delete(node.left, key);
             }
         }
     }
