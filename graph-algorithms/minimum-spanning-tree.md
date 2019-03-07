@@ -46,8 +46,8 @@ class KruskalMinimumSpanningTree {
     void minimumSpanningTree(Graph graph) {
         int V = graph.V;
         mst = new Edge[V - 1];
-        P328_DisjointSetForest disjointSetForest = new P328_DisjointSetForest();
-        DisjointSetForest.Node[] nodes = new P328_DisjointSetForest.Node[V];
+        DisjointSetForest disjointSetForest = new DisjointSetForest();
+        DisjointSetForest.Node[] nodes = new DisjointSetForest.Node[V];
         for (int i = 0; i < V; i++) {
             nodes[i] = disjointSetForest.makeSet(i);
         }
