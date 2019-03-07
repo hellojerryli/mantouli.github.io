@@ -42,13 +42,12 @@ Kruskal算法是基于贪心的思想得到的。首先我们把所有的边按�
 ```java
 class KruskalMinimumSpanningTree {
     Edge[] mst;
-    DisjointSetForest.Node[] nodes;
 
     void minimumSpanningTree(Graph graph) {
         int V = graph.V;
         mst = new Edge[V - 1];
         P328_DisjointSetForest disjointSetForest = new P328_DisjointSetForest();
-        nodes = new P328_DisjointSetForest.Node[V];
+        DisjointSetForest.Node[] nodes = new P328_DisjointSetForest.Node[V];
         for (int i = 0; i < V; i++) {
             nodes[i] = disjointSetForest.makeSet(i);
         }
