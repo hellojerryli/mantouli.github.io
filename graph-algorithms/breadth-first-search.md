@@ -27,7 +27,7 @@ class Vertex {
     int d;
 }
 
-void bfs(Graph graph, int rootId) {
+void bfs(Graph graph, int srcId) {
     int V = graph.V;
     for (int i = 0; i < V; i++) {
         Vertex u = graph.vertices[i];
@@ -35,20 +35,20 @@ void bfs(Graph graph, int rootId) {
         u.d = Integer.MAX_VALUE;
         u.pre = null;
     }
-    Vertex root = graph.vertices[rootId];
-    root.visited = true;
-    root.d = 0;
-    Queue<Vertex> queue = new LinkedList<>();
-    queue.add(root);
-    while (!queue.isEmpty()) {
-        Vertex u = queue.remove();
+    Vertex src = graph.vertices[srcId];
+    src.visited = true;
+    src.d = 0;
+    Queue<Vertex> Q = new Queue<>();
+    Q.enqueue(src);
+    while (!Q.isEmpty()) {
+        Vertex u = Q.dequeue();
         for (Edge e : graph.adj[u.id]) {
             Vertex v = graph.vertices[e.other(u.id)];
             if (!v.visited) {
                 v.visited = true;
                 v.d = u.d + 1;
                 v.pre = u;
-                queue.add(v);
+                Q.enqueue(v);
             }
         }
         u.visited = true;
