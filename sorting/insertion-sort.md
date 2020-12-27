@@ -145,19 +145,20 @@ int BinarySearch(const std::vector<int>& nums, int low, int high, int key) {
 
 最后以 1 为步长进行排序，此时就是简单的插入排序了。
 
-```c
-void ShellSort(int *arr, int len) {
-    for (int gap = len / 2; gap > 0; gap /= 2) {
-        for (int j = gap; j < len; j++) {
-            int key = arr[j];
-            int i = j - gap;
-            while (i >= 0 && arr[i] > key) {
-                arr[i + gap] = arr[i];
-                i -= gap;
-            }
-            arr[i + gap] = key;
-        }
+```c++
+void ShellSort(std::vector<int>& nums) {
+  int n = nums.size();
+  for (int gap = n / 2; gap > 0; gap /= 2) {
+    for (int j = gap; j < n; j++) {
+      int key = nums[j];
+      int i = j - gap;
+      while (i >= 0 && nums[i] > key) {
+        nums[i + gap] = nums[i];
+        i -= gap;
+      }
+      nums[i + gap] = key;
     }
+  }
 }
 ```
 
