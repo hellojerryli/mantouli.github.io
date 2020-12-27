@@ -47,50 +47,51 @@ void InsertionSort(std::vector<int>& nums) {
 还可以把插入排序表示为如下的一个递归过程：为了排序数组的前 n 项，我们递归地排序前 n - 1 项，然后把第 n 项插入已排序的前 n - 1 个元素中。
 
 ```c++
-  void RecursiveInsertionSort(std::vector<int>& nums, int j) {
-    if (j >= 1) {
-      RecursiveInsertionSort(nums, j - 1);
-      int key = nums[j];
-      int i = j - 1;
-      while (i >= 0 && nums[i] > key) {
-        nums[i + 1] = nums[i];
-        i--;
-      }
-      nums[i + 1] = key;
+void RecursiveInsertionSort(std::vector<int>& nums, int j) {
+  if (j >= 1) {
+    RecursiveInsertionSort(nums, j - 1);
+    int key = nums[j];
+    int i = j - 1;
+    while (i >= 0 && nums[i] > key) {
+      nums[i + 1] = nums[i];
+      i--;
     }
+    nums[i + 1] = key;
   }
+}
 ```
 
 ### 二分插入排序
 
 在插入排序中寻找一个元素合适的插入位置时，我们可以用二分查找法来减少比较的次数。在普通的插入排序中，第 i 次需要 O(i) 的时间才能找到一个元素合适的插入位置，使用二分查找法，可以将查找时间减少为 O(lgi)。但二分插入排序只能减小运行时间的常数系数，不能减小渐近运行时间，整个插入排序的时间复杂度仍然为 O(n<sup>2</sup>)，因为第 i 次找到合适的位置，需要移动的元素个数没有改变，移动的时间复杂度仍然为 O(i)。
 
-```c
-int binarySearch(int *arr, int low, int high, int key) {
-    while (low <= high) {
-        int mid = (low + high) / 2;
-        if (key == arr[mid]) {
-            return arr[mid];
-        } else if (key < arr[mid]) {
-            high = mid - 1;
-        } else {
-            low = mid + 1;
-        }
+```c++
+void BinaryInsertionSort(std::vector<int>& nums) {
+  int n = nums.size();
+  for (int j = 0; j < n; ++j) {
+    int key = nums[j];
+    int i = j - 1;
+    int position = std::abs(BinarySearch(nums, 0, j, key) + 1);
+    while (i >= position) {
+      nums[i + 1] = nums[i];
+      i--;
     }
-    return -(low + 1);
+    nums[i + 1] = key;
+  }
 }
 
-void BinaryInsertionSort(int *arr, int len) {
-    for (int j = 0; j < len; j++) {
-        int key = arr[j];
-        int i = j - 1;
-        int location = abs(binarySearch(arr, 0, j, key) + 1);
-        while (i >= location) {
-            arr[i + 1] = arr[i];
-            i--;
-        }
-        arr[i + 1] = key;
+int BinarySearch(const std::vector<int>& nums, int low, int high, int key) {
+  while (low <= high) {
+    int mid = (low + high) / 2;
+    if (key == nums[mid]) {
+      return nums[mid];
+    } else if (key < nums[mid]) {
+      high = mid - 1;
+    } else {
+      low = mid + 1;
     }
+  }
+  return -(low + 1);
 }
 ```
 
